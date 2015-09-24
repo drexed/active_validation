@@ -15,16 +15,16 @@ describe BooleanValidator do
 
     it { should allow_value(true).for(:active) }
     it { should allow_value(false).for(:active) }
+    it { should allow_value("true").for(:active) }
+    it { should allow_value("false").for(:active) }
     it { should allow_value(1).for(:active) }
     it { should allow_value(0).for(:active) }
+    it { should allow_value("1").for(:active) }
+    it { should allow_value("0").for(:active) }
 
     it { should_not allow_value('').for(:active) }
     it { should_not allow_value(' ').for(:active) }
     it { should_not allow_value(nil).for(:active) }
-    it { should_not allow_value("true").for(:active) }
-    it { should_not allow_value("false").for(:active) }
-    it { should_not allow_value("1").for(:active) }
-    it { should_not allow_value("0").for(:active) }
     it { should_not allow_value("! \#$%\`|").for(:active) }
     it { should_not allow_value("<>@[]\`|").for(:active) }
 
