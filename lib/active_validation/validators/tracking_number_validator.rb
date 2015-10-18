@@ -2,7 +2,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s, options)
-      record.errors[attribute] << (options[:message] || I18n.t('active_validation.errors.messages.tracking_number'))
+      record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.tracking_number'.freeze))
     end
   end
 
@@ -27,7 +27,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
       usps20: /^([0-9]{2,2})([0-9]{9,9})([0-9]{8,8})([0-9])$/,
       usps91: /^(?:420\d{5})?(9[1-5](?:[0-9]{19}|[0-9]{23}))([0-9])$/
     }
-  }
+  }.freeze
 
   # DHL
   DEFAULT_CARRIERS_AND_SERVICES.fetch(:dhl).each do |service, pattern|
@@ -50,7 +50,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     sequence, check_digit = formula
 
     total = 0
-    sequence.chars.zip([3, 1, 7, 3, 1, 7, 3, 1, 7, 3, 1]).each do |(char1, char2)|
+    sequence.chars.zip([3, 1, 7, 3, 1, 7, 3, 1, 7, 3, 1].freeze).lazy.each do |(char1, char2)|
       total += (char1.to_i * char2)
     end
 
@@ -59,14 +59,14 @@ class TrackingNumberValidator < ActiveModel::EachValidator
 
   DEFAULT_CARRIERS_AND_SERVICES.fetch(:fedex).only(:ground, :ground18, :ground96).each_with_index do |(service, pattern), i|
     define_method("valid_fedex_#{service}_checksum?") do |value|
-      return(false) unless value.size == [15, 18, 22].at(i)
+      return(false) unless value.size == [15, 18, 22].freeze.at(i)
 
       formula = value.scan(pattern).flatten.compact
       return(false) if formula.empty?
       sequence, check_digit = formula
 
       total = 0
-      sequence.chars.reverse.each_with_index do |character, i|
+      sequence.chars.reverse.lazy.each_with_index do |character, i|
         result = character.to_i
         result *= 3 if i.even?
         total  += result
@@ -88,7 +88,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     sequence, check_digit = formula
 
     total = 0
-    sequence.chars.reverse.each_with_index do |character, i|
+    sequence.chars.reverse.lazy.each_with_index do |character, i|
       result = character.to_i
       result *= 3 if i.even?
       total  += result
@@ -103,14 +103,14 @@ class TrackingNumberValidator < ActiveModel::EachValidator
   DEFAULT_CARRIERS_AND_SERVICES.only(:ontrac, :ups).each_with_index do |(carrier, services), i|
     services.each do |service, pattern|
       define_method("valid_#{carrier}_#{service}_checksum?") do |value|
-        return(false) unless value.size == [15, 18].at(i)
+        return(false) unless value.size == [15, 18].freeze.at(i)
 
         formula = value.scan(pattern).flatten.compact
         return(false) if formula.empty?
         sequence, check_digit = formula
 
         total = 0
-        sequence.chars.each_with_index do |character, i|
+        sequence.chars.lazy.each_with_index do |character, i|
           result = character[/[0-9]/] ? character.to_i : ((character[0].ord - 3) % 10)
           result *= 2 if i.odd?
           total  += result
@@ -135,7 +135,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     check_digit = characters.pop.to_i
 
     total = 0
-    characters.zip([8, 6, 4, 2, 3, 5, 9, 7]).each do |pair|
+    characters.zip([8, 6, 4, 2, 3, 5, 9, 7].freeze).lazy.each do |pair|
       total += (pair[0].to_i * pair[1].to_i)
     end
 
@@ -163,7 +163,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     check_digit = sequence.last.to_i
 
     total = 0
-    characters.reverse.each_with_index do |character, i|
+    characters.reverse.lazy.each_with_index do |character, i|
       result = character.to_i
       result *= 3 if i.even?
       total  += result
@@ -186,7 +186,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     check_digit = sequence.last.to_i
 
     total = 0
-    characters.reverse.each_with_index do |character, i|
+    characters.reverse.lazy.each_with_index do |character, i|
       result = character.to_i
       result *= 3 if i.even?
       total  += result

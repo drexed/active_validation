@@ -5,16 +5,16 @@ class UrlValidator < ActiveModel::EachValidator
     uri = URI.parse(value.to_s)
     raise URI::InvalidURIError unless valid?(uri, options)
   rescue URI::InvalidURIError
-    record.errors[attribute] << (options[:message] || I18n.t('active_validation.errors.messages.url'))
+    record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.url'.freeze))
   end
 
   private
 
-  DEFAULT_SCHEMES = [:http, :https]
+  DEFAULT_SCHEMES = [:http, :https].freeze
 
   def valid_domain?(value, options)
     value_downcased = value.host.to_s.downcase
-    options.empty? || options.any? { |domain| value_downcased.end_with?(".#{domain.downcase}") }
+    options.empty? || options.any? { |d| value_downcased.end_with?(".#{d.downcase}".freeze) }
   end
 
   def valid_length?(value)
@@ -23,11 +23,11 @@ class UrlValidator < ActiveModel::EachValidator
 
   def valid_scheme?(value, options)
     value_downcased = value.scheme.to_s.downcase
-    options.empty? || options.any? { |scheme| value_downcased == scheme.to_s.downcase }
+    options.empty? || options.any? { |s| value_downcased == s.to_s.downcase }
   end
 
   def valid_root?(value)
-    ['/', ''].include?(value.path) && value.query.blank? && value.fragment.blank?
+    ['/', ''].freeze.include?(value.path) && value.query.blank? && value.fragment.blank?
   end
 
   def valid_uri?(value)
@@ -37,9 +37,9 @@ class UrlValidator < ActiveModel::EachValidator
   def valid?(value, options)
     valid_length?(value) &&
     valid_uri?(value) &&
-    valid_domain?(value, [*(options[:domain])]) &&
-    valid_scheme?(value, [*(options[:scheme] || UrlValidator::DEFAULT_SCHEMES)]) &&
-    (options[:root] ? valid_root?(value) : true)
+    valid_domain?(value, [*(options.fetch(:domain, nil))]) &&
+    valid_scheme?(value, [*(options.fetch(:scheme, UrlValidator::DEFAULT_SCHEMES))]) &&
+    (options.fetch(:root, false) ? valid_root?(value) : true)
   end
 
 end

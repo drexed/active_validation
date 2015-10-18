@@ -2,7 +2,7 @@ class AlphaNumericValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s, options)
-      record.errors[attribute] << (options[:message] || I18n.t('active_validation.errors.messages.alpha_numeric'))
+      record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.alpha_numeric'.freeze))
     end
   end
 
@@ -11,7 +11,7 @@ class AlphaNumericValidator < ActiveModel::EachValidator
   def valid_format?(value, options)
     strict = options.fetch(:strict, false)
 
-    value =~ case options[:case]
+    value =~ case options.fetch(:case, :any)
     when :lower
       strict ? /^[a-z0-9]+$/ : /^[a-z0-9 ]+$/
     when :upper

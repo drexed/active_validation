@@ -2,7 +2,7 @@ class CurrencyValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s, options)
-      record.errors[attribute] << (options[:message] || I18n.t('active_validation.errors.messages.currency'))
+      record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.currency'.freeze))
     end
   end
 

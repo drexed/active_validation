@@ -3,8 +3,7 @@ Coveralls.wear!
 
 require 'active_model'
 require 'active_support'
-require 'shoulda/matchers'
-require 'shoulda-matchers'
+require 'shoulda'
 require 'active_validation'
 
 I18n.load_path << File.expand_path("../../config/locales/en.yml", __FILE__)

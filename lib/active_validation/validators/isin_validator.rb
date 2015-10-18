@@ -2,7 +2,7 @@ class IsinValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s)
-      record.errors[attribute] << (options[:message] || I18n.t('active_validation.errors.messages.isin'))
+      record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.isin'.freeze))
     end
   end
 
@@ -10,7 +10,7 @@ class IsinValidator < ActiveModel::EachValidator
 
   def valid_checksum?(value)
     characters  = value.chars
-    digits      = characters.map { |character| character.match(/[A-Z]/) ? (character.ord - 55) : character.to_i }
+    digits      = characters.map { |c| c.match(/[A-Z]/) ? (c.ord - 55) : c.to_i }
     even_values = digits.values_at(* digits.each_index.select { |i| i.even? })
     odd_values  = digits.values_at(* digits.each_index.select { |i| i.odd? })
 

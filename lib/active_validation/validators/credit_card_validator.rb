@@ -2,7 +2,7 @@ class CreditCardValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s, options)
-      record.errors[attribute] << (options[:message] || I18n.t('active_validation.errors.messages.credit_card'))
+      record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.credit_card'.freeze))
     end
   end
 
@@ -19,7 +19,7 @@ class CreditCardValidator < ActiveModel::EachValidator
     solo: [16, 18, 19],
     unionpay: [16, 17, 18, 19],
     visa: [16]
-  }
+  }.freeze
 
   DEFAULT_PREFIXES = {
     american_express: ['34', '37'],
@@ -47,7 +47,7 @@ class CreditCardValidator < ActiveModel::EachValidator
       '622920', '622921', '622922', '622923', '622924', '622925'
     ],
     visa: ['4']
-  }
+  }.freeze
 
   def valid_format?(value, options)
     value =~ (options.fetch(:strict, false) ? /^[0-9]+$/ : /^[0-9 -.]+$/)
@@ -56,74 +56,39 @@ class CreditCardValidator < ActiveModel::EachValidator
   def valid_length?(value, options)
     return(false) unless value.present?
 
-    value_size_range = DEFAULT_LENGTHS.values.flatten.uniq.sort
-    value_size       = value.size
+    current_card = options.fetch(:card, :all).to_sym
+    value_size   = value.size
 
-    case options[:card]
-    when :american_express, :amex
-      DEFAULT_LENGTHS[:american_express].include?(value_size)
-    when :diners_club
-      DEFAULT_LENGTHS[:diners_club].include?(value_size)
-    when :discover
-      DEFAULT_LENGTHS[:discover].include?(value_size)
-    when :jcb
-      DEFAULT_LENGTHS[:jcb].include?(value_size)
-    when :laser
-      DEFAULT_LENGTHS[:laser].include?(value_size)
-    when :maestro
-      DEFAULT_LENGTHS[:maestro].include?(value_size)
-    when :mastercard
-      DEFAULT_LENGTHS[:mastercard].include?(value_size)
-    when :solo
-      DEFAULT_LENGTHS[:solo].include?(value_size)
-    when :unionpay
-      DEFAULT_LENGTHS[:unionpay].include?(value_size)
-    when :visa
-      DEFAULT_LENGTHS[:visa].include?(value_size)
-    else
+    case current_card
+    when :amex
+      DEFAULT_LENGTHS.fetch(:american_express).include?(value_size)
+    when :all
+      value_size_range = DEFAULT_LENGTHS.values.flatten.uniq.sort
       value_size.between?(value_size_range.first, value_size_range.last)
+    else
+      DEFAULT_LENGTHS.fetch(current_card).include?(value_size)
     end
   end
 
   def valid_prefix?(value, options)
-    value_size = value.size
+    current_card = options.fetch(:card, :all).to_sym
 
-    case options[:card]
-    when :american_express, :amex
-      DEFAULT_PREFIXES[:american_express].any? { |prefix| value.start_with?(prefix) }
-    when :diners_club
-      DEFAULT_PREFIXES[:diners_club].any? { |prefix| value.start_with?(prefix) }
-    when :discover
-      DEFAULT_PREFIXES[:discover].any? { |prefix| value.start_with?(prefix) }
-    when :jcb
-      DEFAULT_PREFIXES[:jcb].any? { |prefix| value.start_with?(prefix) }
-    when :laser
-      DEFAULT_PREFIXES[:laser].any? { |prefix| value.start_with?(prefix) }
-    when :maestro
-      DEFAULT_PREFIXES[:maestro].any? { |prefix| value.start_with?(prefix) }
-    when :mastercard
-      DEFAULT_PREFIXES[:mastercard].any? { |prefix| value.start_with?(prefix) }
-    when :solo
-      DEFAULT_PREFIXES[:solo].any? { |prefix| value.start_with?(prefix) }
-    when :unionpay
-      DEFAULT_PREFIXES[:unionpay].any? { |prefix| value.start_with?(prefix) }
-    when :visa
-      DEFAULT_PREFIXES[:visa].any? { |prefix| value.start_with?(prefix) }
-    else
+    case current_card
+    when :amex
+      DEFAULT_PREFIXES.fetch(:american_express).any? { |p| value.start_with?(p) }
+    when :all
       result = false
-      DEFAULT_LENGTHS.each do |key, values|
-        if values.include?(value_size)
-          result = DEFAULT_PREFIXES[key].any? { |prefix| value.start_with?(prefix) }
-          break if result
-        end
-        break if result
+      DEFAULT_LENGTHS.lazy.each do |key, values|
+        break if result = DEFAULT_PREFIXES.fetch(key).any? { |p| value.start_with?(p) } if values.include?(value.size)
       end
-      return(result)
+      result
+    else
+      DEFAULT_PREFIXES.fetch(current_card).any? { |p| value.start_with?(p) }
     end
   end
 
   def valid?(value, options)
-    striped_value = value.gsub(/\D/, '')
+    striped_value = value.gsub(/\D/, ''.freeze)
 
     valid_format?(value, options) &&
     valid_length?(striped_value, options) &&

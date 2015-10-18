@@ -11,12 +11,12 @@ class EqualityValidator < ActiveModel::EachValidator
     operators = OPERATORS.keys
     unless operators.include?(operator)
       raise ArgumentError,
-        "Unknown operator: #{operator.inspect}. Valid operators are: #{operators.map(&:inspect).join(', ')}"
+        "Unknown operator: #{operator.inspect}. Valid operators are: #{operators.map(&:inspect).join(', '.freeze)}"
     end
     operator  = OPERATORS.fetch(operator)
 
     unless value.send(operator.to_sym, record.send(to.to_sym))
-      record.errors[attribute] << (options[:message] || I18n.t('active_validation.errors.messages.equality', attr: to, operator: operator))
+      record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.equality'.freeze, attr: to, operator: operator))
     end
   end
 
@@ -29,6 +29,6 @@ class EqualityValidator < ActiveModel::EachValidator
     greater_than_or_equal_to: :>=,
     equal_to: :==,
     not_equal_to: :!=
-  }
+  }.freeze
 
 end

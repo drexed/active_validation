@@ -2,7 +2,7 @@ class MacAddressValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s)
-      record.errors[attribute] << (options[:message] || I18n.t('active_validation.errors.messages.mac_address'))
+      record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.mac_address'.freeze))
     end
   end
 
@@ -15,15 +15,12 @@ class MacAddressValidator < ActiveModel::EachValidator
     /^([\h]{6}):[\h]{6}?$/i,
     /^([\h]{4}[-|\.|\s]){2}[\h]{4}?$/i,
     /^[\h]{12}?$/i
-  ]
+  ].freeze
 
   def valid_format?(value)
     result = false
-    DEFAULT_FORMATS.each do |pattern|
-      result = (value =~ pattern)
-      break if result
-    end
-    return(result)
+    DEFAULT_FORMATS.lazy.each { |p| break if result = (value =~ p) }
+    result
   end
 
   def valid_length?(value)

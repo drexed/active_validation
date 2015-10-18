@@ -2,14 +2,14 @@ class UuidValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s, options)
-      record.errors[attribute] << (options[:message] || I18n.t('active_validation.errors.messages.uuid'))
+      record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.uuid'.freeze))
     end
   end
 
   private
 
   def valid_format?(value, options)
-    value =~ case options[:version]
+    value =~ case options.fetch(:version, 0)
     when 3
       /^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[0-9A-F]{4}-[0-9A-F]{12}$/i
     when 4
