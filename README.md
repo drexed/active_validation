@@ -740,7 +740,7 @@ end
 
 **Rules:**
 * Range: 6-18
-* Characters: a-z 0-9 -_!@#$%^&*
+* Characters: A-Z a-z 0-9 -_!@#$%^&*
 
 With an ActiveRecord model:
 

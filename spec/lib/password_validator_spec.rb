@@ -14,6 +14,7 @@ describe PasswordValidator do
     subject { klass.new }
 
     it { should allow_value("password").for(:password) }
+    it { should allow_value("Password").for(:password) }
     it { should allow_value("password1234").for(:password) }
     it { should allow_value("pa$$word").for(:password) }
     it { should allow_value("pass-word").for(:password) }

@@ -9,7 +9,7 @@ class PasswordValidator < ActiveModel::EachValidator
   private
 
   def valid_format?(value, options)
-    value =~ (options.fetch(:strict, false) ? /^(?=^.{1,255}$)((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.*$/ : /^[a-z0-9!@#$%^&*_-]{1,255}$/)
+    value =~ (options.fetch(:strict, false) ? /^(?=^.{1,255}$)((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.*$/ : /^[A-Za-z0-9!@#$%^&*_-]{1,255}$/)
   end
 
   def valid_length?(value)
