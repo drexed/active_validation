@@ -50,6 +50,8 @@ Or install it yourself as:
 * [SEDOL](#sedolvalidator)
 * [Slug](#slugvalidator)
 * [SSN](#ssnvalidator)
+* [Tracking Number](#trackingnumbervalidator)
+* [Type](#typevalidator)
 * [URL](#urlvalidator)
 * [Username](#usernamevalidator)
 * [UUID](#uuidvalidator)
@@ -913,6 +915,82 @@ RSpec matcher is also available for your convenience:
 describe User do
   it { should ensure_valid_ssn_format_of(:ssn) }
   it { should_not ensure_valid_ssn_format_of(:name) }
+end
+```
+
+## TrackingNumberValidator
+
+**Ex:** 1Z8V92A70367203024
+
+With an ActiveRecord model:
+
+```ruby
+class Package < ActiveRecord::Base
+  attr_accessor :tracking_number, :name
+  validates :tracking_number, tracking_number: true
+end
+```
+
+Or any ruby class:
+
+```ruby
+class Package
+  include ActiveModel::Validations
+  attr_accessor :tracking_number, :name
+  validates :tracking_number, tracking_number: true
+end
+```
+
+Options:
+  * carrier: :dhl, :fedex, :ontrac, :ups, :usps
+  * service: :express, :express_air, :ground, :ground18, :ground96, :smart_post, :usps13, :usps20, :usps91
+
+```ruby
+validates :tracking_number, tracking_number: { carrier: :dhl }
+validates :tracking_number, tracking_number: { carrier: :fedex, service: :express }
+```
+
+RSpec matcher is also available for your convenience:
+
+```ruby
+describe Package do
+  it { should ensure_valid_tracking_number_format_of(:tracking_number) }
+  it { should_not ensure_valid_tracking_number_format_of(:name) }
+end
+```
+
+## TypeValidator
+
+**Ex:** Boolean or String
+
+**Rules:**
+* Any valid ruby class
+
+With an ActiveRecord model:
+
+```ruby
+class User < ActiveRecord::Base
+  attr_accessor :active, :name
+  validates :active, type: Boolean
+end
+```
+
+Or any ruby class:
+
+```ruby
+class User
+  include ActiveModel::Validations
+  attr_accessor :active, :name
+  validates :active, type: Boolean
+end
+```
+
+RSpec matcher is also available for your convenience:
+
+```ruby
+describe User do
+  it { should ensure_valid_type_format_of(:active) }
+  it { should_not ensure_valid_type_format_of(:name) }
 end
 ```
 

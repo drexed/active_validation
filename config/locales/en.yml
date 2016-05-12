@@ -28,6 +28,7 @@ en:
         slug: "is not a valid slug"
         ssn: "is not a valid social security number"
         tracking_number: "is not a valid tracking number"
+        type: "is not a valid type"
         url: "is not a valid URL"
         username: "is not a valid username"
         uuid: "is not a valid UUID"
@@ -101,6 +102,9 @@ en:
         ensure_valid_tracking_number_format_of:
           failure_message_for_should: "%{model} should ensure valid tracking number format of attribute %{attr}"
           failure_message_for_should_not: "%{model} should not ensure valid tracking number format of attribute %{attr}"
+        ensure_valid_type_format_of:
+          failure_message_for_should: "%{model} should ensure valid type of attribute %{attr}"
+          failure_message_for_should_not: "%{model} should not ensure valid type of attribute %{attr}"
         ensure_valid_url_format_of:
           failure_message_for_should: "%{model} should ensure valid URL format of attribute %{attr}"
           failure_message_for_should_not: "%{model} should not ensure valid URL format of attribute %{attr}"
