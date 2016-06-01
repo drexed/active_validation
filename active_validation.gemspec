@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Gem for commonly used validators.}
   spec.description   = %q{Validate commonly used attributes easily with ActiveValidation.}
-  spec.homepage      = "https://github.com/drexed/active_validation"
+  spec.homepage      = "http://drexed.github.io/active_validation"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
