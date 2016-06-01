@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe SlugValidator do
 
@@ -20,8 +20,8 @@ describe SlugValidator do
     it { should allow_value("slug_word").for(:slug) }
     it { should allow_value("slug_1234").for(:slug) }
 
-    it { should_not allow_value('').for(:slug) }
-    it { should_not allow_value(' ').for(:slug) }
+    it { should_not allow_value("").for(:slug) }
+    it { should_not allow_value(" ").for(:slug) }
     it { should_not allow_value(nil).for(:slug) }
     it { should_not allow_value(" slug").for(:slug) }
     it { should_not allow_value(" slug ").for(:slug) }

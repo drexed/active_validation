@@ -2,7 +2,7 @@ class EmailValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s, options)
-      record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.email'.freeze))
+      record.errors[attribute] << options.fetch(:message, I18n.t("active_validation.errors.messages.email"))
     end
   end
 
@@ -21,9 +21,9 @@ class EmailValidator < ActiveModel::EachValidator
   end
 
   def valid?(value, options)
-    valid_length?(value) &&
-    valid_format?(value) &&
-    valid_domain?(value, [*(options.fetch(:domain, nil))])
+    options = [*(options.fetch(:domain, nil))]
+
+    valid_length?(value) && valid_format?(value) && valid_domain?(value, options)
   end
 
 end

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe IsinValidator do
 
@@ -16,8 +16,8 @@ describe IsinValidator do
     it { should allow_value("US0378331005").for(:isin) }
     it { should allow_value("AU0000XVGZA3").for(:isin) }
 
-    it { should_not allow_value('').for(:isin) }
-    it { should_not allow_value(' ').for(:isin) }
+    it { should_not allow_value("").for(:isin) }
+    it { should_not allow_value(" ").for(:isin) }
     it { should_not allow_value(nil).for(:isin) }
     it { should_not allow_value("US03783310055").for(:isin) }
     it { should_not allow_value("US037833100").for(:isin) }

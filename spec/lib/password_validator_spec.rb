@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe PasswordValidator do
 
@@ -27,8 +27,8 @@ describe PasswordValidator do
     it { should allow_value("password&").for(:password) }
     it { should allow_value("password*").for(:password) }
 
-    it { should_not allow_value('').for(:password) }
-    it { should_not allow_value(' ').for(:password) }
+    it { should_not allow_value("").for(:password) }
+    it { should_not allow_value(" ").for(:password) }
     it { should_not allow_value(nil).for(:password) }
     it { should_not allow_value(" password").for(:password) }
     it { should_not allow_value(" password ").for(:password) }
@@ -55,8 +55,8 @@ describe PasswordValidator do
     it { should allow_value("Password123").for(:password) }
     it { should allow_value("Password-123").for(:password) }
 
-    it { should_not allow_value('').for(:password) }
-    it { should_not allow_value(' ').for(:password) }
+    it { should_not allow_value("").for(:password) }
+    it { should_not allow_value(" ").for(:password) }
     it { should_not allow_value(nil).for(:password) }
     it { should_not allow_value("pass").for(:password) }
     it { should_not allow_value(" password").for(:password) }

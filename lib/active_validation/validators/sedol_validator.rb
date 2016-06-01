@@ -2,18 +2,18 @@ class SedolValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s)
-      record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.sedol'.freeze))
+      record.errors[attribute] << options.fetch(:message, I18n.t("active_validation.errors.messages.sedol"))
     end
   end
 
   private
 
   def valid_checksum?(value)
-    digits  = value.chars.map { |d| d.match(/[A-Z]/) ? (d.ord - 55) : d.to_i }
-    weights = [1, 3, 1, 7, 3, 9, 1].freeze
+    digits = value.chars.map { |d| d.match(/[A-Z]/) ? (d.ord - 55) : d.to_i }
+    weights = [1, 3, 1, 7, 3, 9, 1]
 
     total = 0
-    digits.lazy.each_with_index { |d, i| total += (weights[i] * d) }
+    digits.each_with_index { |d, i| total += (weights[i] * d) }
 
     (10 - total % 10) % 10
   end
@@ -27,9 +27,7 @@ class SedolValidator < ActiveModel::EachValidator
   end
 
   def valid?(value)
-    valid_length?(value) &&
-    valid_format?(value) &&
-    valid_checksum?(value)
+    valid_length?(value) && valid_format?(value) && valid_checksum?(value)
   end
 
 end

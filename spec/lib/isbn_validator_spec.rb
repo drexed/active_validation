@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe IsbnValidator do
 
@@ -24,8 +24,8 @@ describe IsbnValidator do
     it { should allow_value("978-159059-9938").for(:isbn) }
     it { should allow_value("978-159059 9938").for(:isbn) }
 
-    it { should_not allow_value('').for(:isbn) }
-    it { should_not allow_value(' ').for(:isbn) }
+    it { should_not allow_value("").for(:isbn) }
+    it { should_not allow_value(" ").for(:isbn) }
     it { should_not allow_value(nil).for(:isbn) }
     it { should_not allow_value("951-98548-9-p").for(:isbn) }
     it { should_not allow_value("abc123ab3344").for(:isbn) }

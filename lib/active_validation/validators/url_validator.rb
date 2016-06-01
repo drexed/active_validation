@@ -1,20 +1,20 @@
-require 'uri'
+require "uri"
 class UrlValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     uri = URI.parse(value.to_s)
     raise URI::InvalidURIError unless valid?(uri, options)
   rescue URI::InvalidURIError
-    record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.url'.freeze))
+    record.errors[attribute] << options.fetch(:message, I18n.t("active_validation.errors.messages.url"))
   end
 
   private
 
-  DEFAULT_SCHEMES = [:http, :https].freeze
+  DEFAULT_SCHEMES = [:http, :https]
 
   def valid_domain?(value, options)
     value_downcased = value.host.to_s.downcase
-    options.empty? || options.any? { |d| value_downcased.end_with?(".#{d.downcase}".freeze) }
+    options.empty? || options.any? { |d| value_downcased.end_with?(".#{d.downcase}") }
   end
 
   def valid_length?(value)
@@ -27,7 +27,7 @@ class UrlValidator < ActiveModel::EachValidator
   end
 
   def valid_root?(value)
-    ['/', ''].freeze.include?(value.path) && value.query.blank? && value.fragment.blank?
+    ["/", ""].include?(value.path) && value.query.blank? && value.fragment.blank?
   end
 
   def valid_uri?(value)

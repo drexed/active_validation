@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Base64Validator do
 
@@ -19,8 +19,8 @@ describe Base64Validator do
     it { should allow_value("YW55IGNhcm5hbCBwbGVhc3VyZQ==").for(:code) }
     it { should allow_value("YW55IGNhcm5hbCBwbGVhc3VyZS4=").for(:code) }
 
-    it { should_not allow_value('').for(:code) }
-    it { should_not allow_value(' ').for(:code) }
+    it { should_not allow_value("").for(:code) }
+    it { should_not allow_value(" ").for(:code) }
     it { should_not allow_value(nil).for(:code) }
     it { should_not allow_value("1a.b2").for(:code) }
     it { should_not allow_value("1a b2").for(:code) }

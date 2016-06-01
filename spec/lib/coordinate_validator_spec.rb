@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe CoordinateValidator do
 
@@ -28,18 +28,18 @@ describe CoordinateValidator do
     it { should allow_value([0, 0]).for(:coor) }
     it { should allow_value([9.33, 9.33]).for(:coor) }
 
-    it { should_not allow_value('').for(:lat) }
-    it { should_not allow_value(' ').for(:lat) }
+    it { should_not allow_value("").for(:lat) }
+    it { should_not allow_value(" ").for(:lat) }
     it { should_not allow_value(nil).for(:lat) }
     it { should_not allow_value(-90.1).for(:lat) }
     it { should_not allow_value(90.1).for(:lat) }
-    it { should_not allow_value('').for(:lon) }
-    it { should_not allow_value(' ').for(:lon) }
+    it { should_not allow_value("").for(:lon) }
+    it { should_not allow_value(" ").for(:lon) }
     it { should_not allow_value(nil).for(:lon) }
     it { should_not allow_value(-180.1).for(:lon) }
     it { should_not allow_value(180.1).for(:lon) }
-    it { should_not allow_value('').for(:coor) }
-    it { should_not allow_value(' ').for(:coor) }
+    it { should_not allow_value("").for(:coor) }
+    it { should_not allow_value(" ").for(:coor) }
     it { should_not allow_value(nil).for(:coor) }
     it { should_not allow_value([]).for(:coor) }
     it { should_not allow_value([-90.1, -180.1]).for(:coor) }

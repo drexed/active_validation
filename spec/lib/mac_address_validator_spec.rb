@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe MacAddressValidator do
 
@@ -25,8 +25,8 @@ describe MacAddressValidator do
     it { should allow_value("0800 2b01 0203").for(:mac) }
     it { should allow_value("08002b010203").for(:mac) }
 
-    it { should_not allow_value('').for(:mac) }
-    it { should_not allow_value(' ').for(:mac) }
+    it { should_not allow_value("").for(:mac) }
+    it { should_not allow_value(" ").for(:mac) }
     it { should_not allow_value(nil).for(:mac) }
     it { should_not allow_value("invalid").for(:mac) }
     it { should_not allow_value("08-00:2b:01:02:03").for(:mac) }

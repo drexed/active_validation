@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe PhoneValidator do
 
@@ -27,8 +27,8 @@ describe PhoneValidator do
     it { should allow_value("+1-555-123-4567").for(:phone) }
     it { should allow_value("+1 (555) 123-4567 ext-1234").for(:phone) }
 
-    it { should_not allow_value('').for(:phone) }
-    it { should_not allow_value(' ').for(:phone) }
+    it { should_not allow_value("").for(:phone) }
+    it { should_not allow_value(" ").for(:phone) }
     it { should_not allow_value(nil).for(:phone) }
     it { should_not allow_value("123_4567").for(:phone) }
     it { should_not allow_value("(555) 123-4567 ext:1234").for(:phone) }

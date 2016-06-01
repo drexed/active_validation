@@ -2,7 +2,7 @@ class PasswordValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s, options)
-      record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.password'.freeze))
+      record.errors[attribute] << options.fetch(:message, I18n.t("active_validation.errors.messages.password"))
     end
   end
 
@@ -17,8 +17,7 @@ class PasswordValidator < ActiveModel::EachValidator
   end
 
   def valid?(value, options)
-    valid_length?(value) &&
-    valid_format?(value, options)
+    valid_length?(value) && valid_format?(value, options)
   end
 
 end

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe CusipValidator do
 
@@ -15,8 +15,8 @@ describe CusipValidator do
 
     it { should allow_value("125509BG3").for(:code) }
 
-    it { should_not allow_value('').for(:code) }
-    it { should_not allow_value(' ').for(:code) }
+    it { should_not allow_value("").for(:code) }
+    it { should_not allow_value(" ").for(:code) }
     it { should_not allow_value(nil).for(:code) }
     it { should_not allow_value("12345678AB").for(:code) }
 

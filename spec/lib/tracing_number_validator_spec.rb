@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe TrackingNumberValidator do
 
@@ -44,8 +44,8 @@ describe TrackingNumberValidator do
     it { should allow_value("61299998820821171811").for(:tracking_number) }
     it { should allow_value("9261292700768711948021").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("C").for(:tracking_number) }
@@ -100,8 +100,8 @@ describe TrackingNumberValidator do
     it { should allow_value("3318810014").for(:tracking_number) }
     it { should allow_value("73891051146").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("3318810026").for(:tracking_number) }
@@ -132,8 +132,8 @@ describe TrackingNumberValidator do
     it { should allow_value("3318810036").for(:tracking_number) }
     it { should allow_value("3318810014").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("3318810026").for(:tracking_number) }
@@ -162,8 +162,8 @@ describe TrackingNumberValidator do
 
     it { should allow_value("73891051146").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("3318810025").for(:tracking_number) }
@@ -206,8 +206,8 @@ describe TrackingNumberValidator do
     it { should allow_value("61299998820821171811").for(:tracking_number) }
     it { should allow_value("9261292700768711948021").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("986578788856").for(:tracking_number) }
@@ -242,8 +242,8 @@ describe TrackingNumberValidator do
     it { should allow_value("790535312317").for(:tracking_number) }
     it { should allow_value("974367662710").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("986578788856").for(:tracking_number) }
@@ -269,8 +269,8 @@ describe TrackingNumberValidator do
     it { should allow_value("568283610012000").for(:tracking_number) }
     it { should allow_value("568283610012734").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("041441760228965").for(:tracking_number) }
@@ -295,8 +295,8 @@ describe TrackingNumberValidator do
 
     it { should allow_value("000123450000000027").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("000123450000000026").for(:tracking_number) }
@@ -321,8 +321,8 @@ describe TrackingNumberValidator do
 
     it { should allow_value("9611020987654312345672").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("9611020987654312345673").for(:tracking_number) }
@@ -347,8 +347,8 @@ describe TrackingNumberValidator do
     it { should allow_value("61299998820821171811").for(:tracking_number) }
     it { should allow_value("9261292700768711948021").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("61299998820821171812").for(:tracking_number) }
@@ -374,8 +374,8 @@ describe TrackingNumberValidator do
     it { should allow_value("C11031500001879").for(:tracking_number) }
     it { should allow_value("C10999911320231").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("C").for(:tracking_number) }
@@ -407,8 +407,8 @@ describe TrackingNumberValidator do
     it { should allow_value("1Z8V92A70367203024").for(:tracking_number) }
     it { should allow_value("1Z410E7W0392751591").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("C").for(:tracking_number) }
@@ -443,8 +443,8 @@ describe TrackingNumberValidator do
     it { should allow_value("9505511069605048600624").for(:tracking_number) }
     it { should allow_value("9361289878700317633795").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("RB123456780US").for(:tracking_number) }
@@ -473,8 +473,8 @@ describe TrackingNumberValidator do
 
     it { should allow_value("RB123456785US").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("RB123456780US").for(:tracking_number) }
@@ -498,8 +498,8 @@ describe TrackingNumberValidator do
 
     it { should allow_value("03071790000523483741").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("03071790000523483742").for(:tracking_number) }
@@ -528,8 +528,8 @@ describe TrackingNumberValidator do
     it { should allow_value("9505511069605048600624").for(:tracking_number) }
     it { should allow_value("9361289878700317633795").for(:tracking_number) }
 
-    it { should_not allow_value('').for(:tracking_number) }
-    it { should_not allow_value(' ').for(:tracking_number) }
+    it { should_not allow_value("").for(:tracking_number) }
+    it { should_not allow_value(" ").for(:tracking_number) }
     it { should_not allow_value(nil).for(:tracking_number) }
     it { should_not allow_value("3").for(:tracking_number) }
     it { should_not allow_value("9605511069605048600624").for(:tracking_number) }

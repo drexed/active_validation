@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe CreditCardValidator do
 
@@ -118,8 +118,8 @@ describe CreditCardValidator do
     it { should allow_value("4000000000000000").for(:cc_number) }
     it { should allow_value("4000 0000.0000-0000").for(:cc_number) }
 
-    it { should_not allow_value('').for(:cc_number) }
-    it { should_not allow_value(' ').for(:cc_number) }
+    it { should_not allow_value("").for(:cc_number) }
+    it { should_not allow_value(" ").for(:cc_number) }
     it { should_not allow_value(nil).for(:cc_number) }
     it { should_not allow_value("#").for(:cc_number) }
     it { should_not allow_value("9").for(:cc_number) }
@@ -178,8 +178,8 @@ describe CreditCardValidator do
     it { should allow_value("370000000000000").for(:cc_number) }
     it { should allow_value("3700 0000.0000-000").for(:cc_number) }
 
-    it { should_not allow_value('').for(:cc_number) }
-    it { should_not allow_value(' ').for(:cc_number) }
+    it { should_not allow_value("").for(:cc_number) }
+    it { should_not allow_value(" ").for(:cc_number) }
     it { should_not allow_value(nil).for(:cc_number) }
     it { should_not allow_value("#").for(:cc_number) }
     it { should_not allow_value("9").for(:cc_number) }
@@ -221,8 +221,8 @@ describe CreditCardValidator do
     it { should allow_value("5500 0000.0000-00").for(:cc_number) }
     it { should allow_value("5500 0000.0000-0000").for(:cc_number) }
 
-    it { should_not allow_value('').for(:cc_number) }
-    it { should_not allow_value(' ').for(:cc_number) }
+    it { should_not allow_value("").for(:cc_number) }
+    it { should_not allow_value(" ").for(:cc_number) }
     it { should_not allow_value(nil).for(:cc_number) }
     it { should_not allow_value("#").for(:cc_number) }
     it { should_not allow_value("9").for(:cc_number) }
@@ -287,8 +287,8 @@ describe CreditCardValidator do
     it { should allow_value("6500000000000000").for(:cc_number) }
     it { should allow_value("6500 0000.0000-0000").for(:cc_number) }
 
-    it { should_not allow_value('').for(:cc_number) }
-    it { should_not allow_value(' ').for(:cc_number) }
+    it { should_not allow_value("").for(:cc_number) }
+    it { should_not allow_value(" ").for(:cc_number) }
     it { should_not allow_value(nil).for(:cc_number) }
     it { should_not allow_value("#").for(:cc_number) }
     it { should_not allow_value("9").for(:cc_number) }
@@ -327,8 +327,8 @@ describe CreditCardValidator do
     it { should allow_value("3580000000000000").for(:cc_number) }
     it { should allow_value("3580 0000.0000-0000").for(:cc_number) }
 
-    it { should_not allow_value('').for(:cc_number) }
-    it { should_not allow_value(' ').for(:cc_number) }
+    it { should_not allow_value("").for(:cc_number) }
+    it { should_not allow_value(" ").for(:cc_number) }
     it { should_not allow_value(nil).for(:cc_number) }
     it { should_not allow_value("#").for(:cc_number) }
     it { should_not allow_value("9").for(:cc_number) }
@@ -369,8 +369,8 @@ describe CreditCardValidator do
     it { should allow_value("6709 0000.0000-000000").for(:cc_number) }
     it { should allow_value("6709 0000.0000-0000000").for(:cc_number) }
 
-    it { should_not allow_value('').for(:cc_number) }
-    it { should_not allow_value(' ').for(:cc_number) }
+    it { should_not allow_value("").for(:cc_number) }
+    it { should_not allow_value(" ").for(:cc_number) }
     it { should_not allow_value(nil).for(:cc_number) }
     it { should_not allow_value("#").for(:cc_number) }
     it { should_not allow_value("9").for(:cc_number) }
@@ -426,8 +426,8 @@ describe CreditCardValidator do
     it { should allow_value("6766 0000.0000-000000").for(:cc_number) }
     it { should allow_value("6766 0000.0000-0000000").for(:cc_number) }
 
-    it { should_not allow_value('').for(:cc_number) }
-    it { should_not allow_value(' ').for(:cc_number) }
+    it { should_not allow_value("").for(:cc_number) }
+    it { should_not allow_value(" ").for(:cc_number) }
     it { should_not allow_value(nil).for(:cc_number) }
     it { should_not allow_value("#").for(:cc_number) }
     it { should_not allow_value("9").for(:cc_number) }
@@ -463,8 +463,8 @@ describe CreditCardValidator do
     it { should allow_value("5500000000000000").for(:cc_number) }
     it { should allow_value("5500 0000.0000-0000").for(:cc_number) }
 
-    it { should_not allow_value('').for(:cc_number) }
-    it { should_not allow_value(' ').for(:cc_number) }
+    it { should_not allow_value("").for(:cc_number) }
+    it { should_not allow_value(" ").for(:cc_number) }
     it { should_not allow_value(nil).for(:cc_number) }
     it { should_not allow_value("#").for(:cc_number) }
     it { should_not allow_value("9").for(:cc_number) }
@@ -501,8 +501,8 @@ describe CreditCardValidator do
     it { should allow_value("6767 0000.0000-000000").for(:cc_number) }
     it { should allow_value("6767 0000.0000-0000000").for(:cc_number) }
 
-    it { should_not allow_value('').for(:cc_number) }
-    it { should_not allow_value(' ').for(:cc_number) }
+    it { should_not allow_value("").for(:cc_number) }
+    it { should_not allow_value(" ").for(:cc_number) }
     it { should_not allow_value(nil).for(:cc_number) }
     it { should_not allow_value("#").for(:cc_number) }
     it { should_not allow_value("9").for(:cc_number) }
@@ -566,8 +566,8 @@ describe CreditCardValidator do
     it { should allow_value("6229 2500.0000-000000").for(:cc_number) }
     it { should allow_value("6229 2500.0000-0000000").for(:cc_number) }
 
-    it { should_not allow_value('').for(:cc_number) }
-    it { should_not allow_value(' ').for(:cc_number) }
+    it { should_not allow_value("").for(:cc_number) }
+    it { should_not allow_value(" ").for(:cc_number) }
     it { should_not allow_value(nil).for(:cc_number) }
     it { should_not allow_value("#").for(:cc_number) }
     it { should_not allow_value("9").for(:cc_number) }
@@ -599,8 +599,8 @@ describe CreditCardValidator do
     it { should allow_value("4000000000000000").for(:cc_number) }
     it { should allow_value("4000 0000.0000-0000").for(:cc_number) }
 
-    it { should_not allow_value('').for(:cc_number) }
-    it { should_not allow_value(' ').for(:cc_number) }
+    it { should_not allow_value("").for(:cc_number) }
+    it { should_not allow_value(" ").for(:cc_number) }
     it { should_not allow_value(nil).for(:cc_number) }
     it { should_not allow_value("#").for(:cc_number) }
     it { should_not allow_value("9").for(:cc_number) }
@@ -631,8 +631,8 @@ describe CreditCardValidator do
 
     it { should allow_value("4000000000000000").for(:cc_number) }
 
-    it { should_not allow_value('').for(:cc_number) }
-    it { should_not allow_value(' ').for(:cc_number) }
+    it { should_not allow_value("").for(:cc_number) }
+    it { should_not allow_value(" ").for(:cc_number) }
     it { should_not allow_value(nil).for(:cc_number) }
     it { should_not allow_value("#").for(:cc_number) }
     it { should_not allow_value("9").for(:cc_number) }
@@ -663,8 +663,8 @@ describe CreditCardValidator do
 
     it { should allow_value("4000000000000000").for(:cc_number) }
 
-    it { should_not allow_value('').for(:cc_number) }
-    it { should_not allow_value(' ').for(:cc_number) }
+    it { should_not allow_value("").for(:cc_number) }
+    it { should_not allow_value(" ").for(:cc_number) }
     it { should_not allow_value(nil).for(:cc_number) }
     it { should_not allow_value("#").for(:cc_number) }
     it { should_not allow_value("9").for(:cc_number) }

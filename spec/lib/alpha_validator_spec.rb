@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe AlphaValidator do
 
@@ -16,8 +16,8 @@ describe AlphaValidator do
     it { should allow_value("Example").for(:title) }
     it { should allow_value("Example Title").for(:title) }
 
-    it { should_not allow_value('').for(:title) }
-    it { should_not allow_value(' ').for(:title) }
+    it { should_not allow_value("").for(:title) }
+    it { should_not allow_value(" ").for(:title) }
     it { should_not allow_value(nil).for(:title) }
     it { should_not allow_value("Example1").for(:title) }
     it { should_not allow_value("Example 1").for(:title) }
@@ -42,8 +42,8 @@ describe AlphaValidator do
 
     it { should allow_value("Example").for(:title) }
 
-    it { should_not allow_value('').for(:title) }
-    it { should_not allow_value(' ').for(:title) }
+    it { should_not allow_value("").for(:title) }
+    it { should_not allow_value(" ").for(:title) }
     it { should_not allow_value(nil).for(:title) }
     it { should_not allow_value("Example Title").for(:title) }
     it { should_not allow_value("Example 1").for(:title) }
@@ -71,8 +71,8 @@ describe AlphaValidator do
     it { should allow_value("example").for(:title) }
     it { should allow_value("example title").for(:title) }
 
-    it { should_not allow_value('').for(:title) }
-    it { should_not allow_value(' ').for(:title) }
+    it { should_not allow_value("").for(:title) }
+    it { should_not allow_value(" ").for(:title) }
     it { should_not allow_value(nil).for(:title) }
     it { should_not allow_value("Example").for(:title) }
     it { should_not allow_value("Example Title").for(:title) }
@@ -101,8 +101,8 @@ describe AlphaValidator do
     it { should allow_value("EXAMPLE").for(:title) }
     it { should allow_value("EXAMPLE TITLE").for(:title) }
 
-    it { should_not allow_value('').for(:title) }
-    it { should_not allow_value(' ').for(:title) }
+    it { should_not allow_value("").for(:title) }
+    it { should_not allow_value(" ").for(:title) }
     it { should_not allow_value(nil).for(:title) }
     it { should_not allow_value("example").for(:title) }
     it { should_not allow_value("Example").for(:title) }
@@ -131,8 +131,8 @@ describe AlphaValidator do
 
     it { should allow_value("example").for(:title) }
 
-    it { should_not allow_value('').for(:title) }
-    it { should_not allow_value(' ').for(:title) }
+    it { should_not allow_value("").for(:title) }
+    it { should_not allow_value(" ").for(:title) }
     it { should_not allow_value(nil).for(:title) }
     it { should_not allow_value("Example").for(:title) }
     it { should_not allow_value("Example Title").for(:title) }
@@ -161,8 +161,8 @@ describe AlphaValidator do
 
     it { should allow_value("EXAMPLE").for(:title) }
 
-    it { should_not allow_value('').for(:title) }
-    it { should_not allow_value(' ').for(:title) }
+    it { should_not allow_value("").for(:title) }
+    it { should_not allow_value(" ").for(:title) }
     it { should_not allow_value(nil).for(:title) }
     it { should_not allow_value("example").for(:title) }
     it { should_not allow_value("Example").for(:title) }

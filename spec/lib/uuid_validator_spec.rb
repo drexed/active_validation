@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe UuidValidator do
 
@@ -18,8 +18,8 @@ describe UuidValidator do
     it { should allow_value("886313e1-3b8a-5372-9b90-0c9aee199e5d").for(:uuid) }
     it { should allow_value("a8098c1a-f86e-11da-bd1a-00112444be1e").for(:uuid) }
 
-    it { should_not allow_value('').for(:uuid) }
-    it { should_not allow_value(' ').for(:uuid) }
+    it { should_not allow_value("").for(:uuid) }
+    it { should_not allow_value(" ").for(:uuid) }
     it { should_not allow_value(nil).for(:uuid) }
     it { should_not allow_value("6fa459ea-ee8a-3ca4-894e-db77e160355e1").for(:uuid) }
     it { should_not allow_value("16fd2706-8baf-433b-82eb-8c7fada847da1").for(:uuid) }
@@ -53,8 +53,8 @@ describe UuidValidator do
 
     it { should allow_value("6fa459ea-ee8a-3ca4-894e-db77e160355e").for(:uuid) }
 
-    it { should_not allow_value('').for(:uuid) }
-    it { should_not allow_value(' ').for(:uuid) }
+    it { should_not allow_value("").for(:uuid) }
+    it { should_not allow_value(" ").for(:uuid) }
     it { should_not allow_value(nil).for(:uuid) }
     it { should_not allow_value("16fd2706-8baf-433b-82eb-8c7fada847da").for(:uuid) }
     it { should_not allow_value("886313e1-3b8a-5372-9b90-0c9aee199e5d").for(:uuid) }
@@ -91,8 +91,8 @@ describe UuidValidator do
 
     it { should allow_value("16fd2706-8baf-433b-82eb-8c7fada847da").for(:uuid) }
 
-    it { should_not allow_value('').for(:uuid) }
-    it { should_not allow_value(' ').for(:uuid) }
+    it { should_not allow_value("").for(:uuid) }
+    it { should_not allow_value(" ").for(:uuid) }
     it { should_not allow_value(nil).for(:uuid) }
     it { should_not allow_value("6fa459ea-ee8a-3ca4-894e-db77e160355e").for(:uuid) }
     it { should_not allow_value("886313e1-3b8a-5372-9b90-0c9aee199e5d").for(:uuid) }
@@ -129,8 +129,8 @@ describe UuidValidator do
 
     it { should allow_value("886313e1-3b8a-5372-9b90-0c9aee199e5d").for(:uuid) }
 
-    it { should_not allow_value('').for(:uuid) }
-    it { should_not allow_value(' ').for(:uuid) }
+    it { should_not allow_value("").for(:uuid) }
+    it { should_not allow_value(" ").for(:uuid) }
     it { should_not allow_value(nil).for(:uuid) }
     it { should_not allow_value("6fa459ea-ee8a-3ca4-894e-db77e160355e").for(:uuid) }
     it { should_not allow_value("16fd2706-8baf-433b-82eb-8c7fada847da").for(:uuid) }

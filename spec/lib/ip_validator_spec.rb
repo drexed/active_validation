@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe IpValidator do
 
@@ -17,8 +17,8 @@ describe IpValidator do
     it { should allow_value("127.0.0.1").for(:ip) }
     it { should allow_value("99.39.240.31").for(:ip) }
 
-    it { should_not allow_value('').for(:ip) }
-    it { should_not allow_value(' ').for(:ip) }
+    it { should_not allow_value("").for(:ip) }
+    it { should_not allow_value(" ").for(:ip) }
     it { should_not allow_value(nil).for(:ip) }
     it { should_not allow_value("0 0 0 0").for(:ip) }
     it { should_not allow_value("0.0.0.0:3000").for(:ip) }

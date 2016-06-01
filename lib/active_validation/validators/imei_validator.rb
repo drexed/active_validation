@@ -2,7 +2,7 @@ class ImeiValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s)
-      record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.imei'.freeze))
+      record.errors[attribute] << options.fetch(:message, I18n.t("active_validation.errors.messages.imei"))
     end
   end
 
@@ -17,23 +17,21 @@ class ImeiValidator < ActiveModel::EachValidator
   end
 
   def valid_luhn?(value)
-    number = value.gsub(/\D/, ''.freeze).reverse
+    number = value.gsub(/\D/, "").reverse
 
     total = 0
-    number.chars.lazy.each_with_index do |c, i|
+    number.chars.each_with_index do |c, i|
       result = c.to_i
       result *= 2 if i.odd?
       result = (1 + (result - 10)) if (result >= 10)
-      total  += result
+      total += result
     end
 
     (total % 10).zero?
   end
 
   def valid?(value)
-    valid_length?(value) &&
-    valid_format?(value) &&
-    valid_luhn?(value)
+    valid_length?(value) && valid_format?(value) && valid_luhn?(value)
   end
 
 end

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe UsernameValidator do
 
@@ -18,8 +18,8 @@ describe UsernameValidator do
     it { should allow_value("username_123").for(:username) }
     it { should allow_value("username-123").for(:username) }
 
-    it { should_not allow_value('').for(:username) }
-    it { should_not allow_value(' ').for(:username) }
+    it { should_not allow_value("").for(:username) }
+    it { should_not allow_value(" ").for(:username) }
     it { should_not allow_value(nil).for(:username) }
     it { should_not allow_value("u").for(:username) }
     it { should_not allow_value(" username").for(:username) }

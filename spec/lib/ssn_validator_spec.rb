@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe SsnValidator do
 
@@ -16,8 +16,8 @@ describe SsnValidator do
     it { should allow_value("333-22-4444").for(:ssn) }
     it { should allow_value("333224444").for(:ssn) }
 
-    it { should_not allow_value('').for(:ssn) }
-    it { should_not allow_value(' ').for(:ssn) }
+    it { should_not allow_value("").for(:ssn) }
+    it { should_not allow_value(" ").for(:ssn) }
     it { should_not allow_value(nil).for(:ssn) }
     it { should_not allow_value(" 333-22-4444").for(:ssn) }
     it { should_not allow_value(" 333-22-4444 ").for(:ssn) }

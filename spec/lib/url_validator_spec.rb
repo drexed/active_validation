@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe UrlValidator do
 
@@ -30,8 +30,8 @@ describe UrlValidator do
     it { should allow_value("http://example.aero").for(:url) }
     it { should allow_value("http://example.aero?foo=bar").for(:url) }
 
-    it { should_not allow_value('').for(:url) }
-    it { should_not allow_value(' ').for(:url) }
+    it { should_not allow_value("").for(:url) }
+    it { should_not allow_value(" ").for(:url) }
     it { should_not allow_value(nil).for(:url) }
     it { should_not allow_value("example").for(:url) }
     it { should_not allow_value("ftp://foo.bar.baz.com").for(:url) }

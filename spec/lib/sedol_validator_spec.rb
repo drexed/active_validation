@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe SedolValidator do
 
@@ -15,8 +15,8 @@ describe SedolValidator do
 
     it { should allow_value("B0WNLY7").for(:sedol) }
 
-    it { should_not allow_value('').for(:sedol) }
-    it { should_not allow_value(' ').for(:sedol) }
+    it { should_not allow_value("").for(:sedol) }
+    it { should_not allow_value(" ").for(:sedol) }
     it { should_not allow_value(nil).for(:sedol) }
     it { should_not allow_value("B0WNL").for(:sedol) }
     it { should_not allow_value("B0WNLY").for(:sedol) }

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe CurrencyValidator do
 
@@ -18,8 +18,8 @@ describe CurrencyValidator do
     it { should allow_value("1.00").for(:price) }
     it { should allow_value("12345678.00").for(:price) }
 
-    it { should_not allow_value('').for(:price) }
-    it { should_not allow_value(' ').for(:price) }
+    it { should_not allow_value("").for(:price) }
+    it { should_not allow_value(" ").for(:price) }
     it { should_not allow_value(nil).for(:price) }
     it { should_not allow_value("1").for(:price) }
     it { should_not allow_value("1.000").for(:price) }
@@ -45,8 +45,8 @@ describe CurrencyValidator do
     it { should allow_value("1.00").for(:price) }
     it { should allow_value("12345678.00").for(:price) }
 
-    it { should_not allow_value('').for(:price) }
-    it { should_not allow_value(' ').for(:price) }
+    it { should_not allow_value("").for(:price) }
+    it { should_not allow_value(" ").for(:price) }
     it { should_not allow_value(nil).for(:price) }
     it { should_not allow_value(".00").for(:price) }
     it { should_not allow_value("1").for(:price) }

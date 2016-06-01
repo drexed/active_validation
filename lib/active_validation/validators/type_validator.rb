@@ -6,7 +6,7 @@ class TypeValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value, options)
-      record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.type'.freeze))
+      record.errors[attribute] << options.fetch(:message, I18n.t("active_validation.errors.messages.type"))
     end
   end
 

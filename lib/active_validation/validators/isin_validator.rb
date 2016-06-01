@@ -2,23 +2,27 @@ class IsinValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s)
-      record.errors[attribute] << (options.fetch(:message, false) || I18n.t('active_validation.errors.messages.isin'.freeze))
+      record.errors[attribute] << options.fetch(:message, I18n.t("active_validation.errors.messages.isin"))
     end
   end
 
   private
 
   def valid_checksum?(value)
-    characters  = value.chars
-    digits      = characters.map { |c| c.match(/[A-Z]/) ? (c.ord - 55) : c.to_i }
-    even_values = digits.values_at(* digits.each_index.select { |i| i.even? })
-    odd_values  = digits.values_at(* digits.each_index.select { |i| i.odd? })
+    characters = value.chars
+    digits = characters.map { |c| c.match(/[A-Z]/) ? (c.ord - 55) : c.to_i }
+    even_values = digits.values_at(*digits.each_index.select { |i| i.even? })
+    odd_values = digits.values_at(*digits.each_index.select { |i| i.odd? })
 
-    longest, shortest = (even_values.last == characters.map(&:to_i)) ? [even_values, odd_values] : [odd_values, even_values]
+    longest, shortest = if even_values.last == characters.map(&:to_i)
+      [even_values, odd_values]
+    else
+      [odd_values, even_values]
+    end
 
     longest = longest.map { |i| i * 2 }
-    values  = longest.concat(shortest).to_s.scan(/./).map(&:to_i)
-    total   = values.inject(&:+)
+    values = longest.concat(shortest).to_s.scan(/./).map(&:to_i)
+    total = values.inject(&:+)
 
     (10 - (total % 10)) % 10
   end
@@ -32,9 +36,7 @@ class IsinValidator < ActiveModel::EachValidator
   end
 
   def valid?(value)
-    valid_length?(value) &&
-    valid_format?(value) &&
-    valid_checksum?(value)
+    valid_length?(value) && valid_format?(value) && valid_checksum?(value)
   end
 
 end

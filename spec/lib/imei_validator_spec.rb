@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe ImeiValidator do
 
@@ -18,8 +18,8 @@ describe ImeiValidator do
     it { should allow_value("35-684305-2637512").for(:imei) }
     it { should allow_value("35-684305.263.7512").for(:imei) }
 
-    it { should_not allow_value('').for(:imei) }
-    it { should_not allow_value(' ').for(:imei) }
+    it { should_not allow_value("").for(:imei) }
+    it { should_not allow_value(" ").for(:imei) }
     it { should_not allow_value(nil).for(:imei) }
     it { should_not allow_value("3").for(:imei) }
     it { should_not allow_value("3568430537512").for(:imei) }

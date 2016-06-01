@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe HexValidator do
 
@@ -34,8 +34,8 @@ describe HexValidator do
     it { should allow_value("a9a9a9").for(:color) }
     it { should allow_value("A9A9A9").for(:color) }
 
-    it { should_not allow_value('').for(:color) }
-    it { should_not allow_value(' ').for(:color) }
+    it { should_not allow_value("").for(:color) }
+    it { should_not allow_value(" ").for(:color) }
     it { should_not allow_value(nil).for(:color) }
     it { should_not allow_value("#").for(:color) }
     it { should_not allow_value("#9").for(:color) }

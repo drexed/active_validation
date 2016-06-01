@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe BooleanValidator do
 
@@ -22,8 +22,8 @@ describe BooleanValidator do
     it { should allow_value("1").for(:active) }
     it { should allow_value("0").for(:active) }
 
-    it { should_not allow_value('').for(:active) }
-    it { should_not allow_value(' ').for(:active) }
+    it { should_not allow_value("").for(:active) }
+    it { should_not allow_value(" ").for(:active) }
     it { should_not allow_value(nil).for(:active) }
     it { should_not allow_value("! \#$%\`|").for(:active) }
     it { should_not allow_value("<>@[]\`|").for(:active) }

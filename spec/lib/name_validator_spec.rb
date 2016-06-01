@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe NameValidator do
 
@@ -20,8 +20,8 @@ describe NameValidator do
     it { should allow_value("Sur First Middle Last Family").for(:name) }
     it { should allow_value("Sur First Middle Last-Family").for(:name) }
 
-    it { should_not allow_value('').for(:name) }
-    it { should_not allow_value(' ').for(:name) }
+    it { should_not allow_value("").for(:name) }
+    it { should_not allow_value(" ").for(:name) }
     it { should_not allow_value(nil).for(:name) }
     it { should_not allow_value("First").for(:name) }
     it { should_not allow_value("First Last_Name").for(:name) }
