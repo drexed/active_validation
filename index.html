@@ -1,0 +1,1125 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Active validation by drexed</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Active validation</h1>
+        <p>Gem for commonly used validators.</p>
+
+        <p class="view"><a href="https://github.com/drexed/active_validation">View the Project on GitHub <small>drexed/active_validation</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/drexed/active_validation/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/drexed/active_validation/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/drexed/active_validation">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="activevalidation" class="anchor" href="#activevalidation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ActiveValidation</h1>
+
+<p><a href="http://badge.fury.io/rb/active_validation"><img src="https://badge.fury.io/rb/active_validation.svg" alt="Gem Version"></a>
+<a href="https://travis-ci.org/drexed/active_validation"><img src="https://travis-ci.org/drexed/active_validation.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/github/drexed/active_validation?branch=master"><img src="https://coveralls.io/repos/github/drexed/active_validation/badge.svg?branch=master" alt="Coverage Status"></a></p>
+
+<p>ActiveValidation is a collection of custom validators that are often required in Rails applications plus shoulda-style RSpec matchers to test the validation rules.</p>
+
+<p>Highly recommended validators:</p>
+
+<ul>
+<li>
+<strong>DateTime:</strong> Validates Timeliness - <a href="https://github.com/adzap/validates_timeliness">https://github.com/adzap/validates_timeliness</a>
+</li>
+<li>
+<strong>Existence:</strong> Validates Existence - <a href="https://github.com/perfectline/validates_existence">https://github.com/perfectline/validates_existence</a>
+</li>
+<li>
+<strong>Group:</strong> Group Validations - <a href="https://github.com/adzap/grouped_validations">https://github.com/adzap/grouped_validations</a>
+</li>
+<li>
+<strong>Overlap:</strong> Validates Overlap - <a href="https://github.com/robinbortlik/validates_overlap">https://github.com/robinbortlik/validates_overlap</a>
+</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Add this line to your application's Gemfile:</p>
+
+<pre><code>gem 'active_validation'
+</code></pre>
+
+<p>And then execute:</p>
+
+<pre><code>$ bundle
+</code></pre>
+
+<p>Or install it yourself as:</p>
+
+<pre><code>$ gem install active_validation
+</code></pre>
+
+<h2>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h2>
+
+<ul>
+<li><a href="#alphavalidator">Alpha</a></li>
+<li><a href="#alphanumericvalidator">AlphaNumeric</a></li>
+<li><a href="#base64validator">Base64</a></li>
+<li><a href="#booleanvalidator">Boolean</a></li>
+<li><a href="#coordinatesvalidator">Coordinates</a></li>
+<li><a href="#creditcardvalidator">Credit Card</a></li>
+<li><a href="#currencyvalidator">Currency</a></li>
+<li><a href="#cusipvalidator">CUSIP</a></li>
+<li><a href="#emailvalidator">Email</a></li>
+<li><a href="#equalityvalidator">Equality</a></li>
+<li><a href="#hexvalidator">Hex</a></li>
+<li><a href="#imeivalidator">IMEI</a></li>
+<li><a href="#ipvalidator">IP</a></li>
+<li><a href="#isbnvalidator">ISBN</a></li>
+<li><a href="#isinvalidator">ISIN</a></li>
+<li><a href="#macaddressvalidator">MAC Address</a></li>
+<li><a href="#namevalidator">Name</a></li>
+<li><a href="#passwordvalidator">Password</a></li>
+<li><a href="#phonevalidator">Phone</a></li>
+<li><a href="#sedolvalidator">SEDOL</a></li>
+<li><a href="#slugvalidator">Slug</a></li>
+<li><a href="#ssnvalidator">SSN</a></li>
+<li><a href="#trackingnumbervalidator">Tracking Number</a></li>
+<li><a href="#typevalidator">Type</a></li>
+<li><a href="#urlvalidator">URL</a></li>
+<li><a href="#usernamevalidator">Username</a></li>
+<li><a href="#uuidvalidator">UUID</a></li>
+</ul>
+
+<h2>
+<a id="alphavalidator" class="anchor" href="#alphavalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AlphaValidator</h2>
+
+<p><strong>Ex:</strong> Example or Example Title</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters: A-Z a-z</li>
+<li>Must include: A-Z a-z</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Book<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:title</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:title</span>, <span class="pl-c1">alpha:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Book</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:title</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:title</span>, <span class="pl-c1">alpha:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Options: :strict, case: [:lower, :upper]</p>
+
+<div class="highlight highlight-source-ruby"><pre>validates <span class="pl-c1">:title</span>, <span class="pl-c1">alpha:</span> { <span class="pl-c1">strict:</span> <span class="pl-c1">true</span> }
+validates <span class="pl-c1">:title</span>, <span class="pl-c1">alpha:</span> { <span class="pl-c1">case:</span> <span class="pl-c1">:lower</span> }
+validates <span class="pl-c1">:title</span>, <span class="pl-c1">alpha:</span> { <span class="pl-c1">case:</span> <span class="pl-c1">:upper</span>, <span class="pl-c1">strict:</span> <span class="pl-c1">true</span> }</pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">Book</span> <span class="pl-k">do</span>
+  it { should ensure_valid_alpha_format_of(<span class="pl-c1">:title</span>) }
+  it { should_not ensure_valid_alpha_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="alphanumericvalidator" class="anchor" href="#alphanumericvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AlphaNumericValidator</h2>
+
+<p><strong>Ex:</strong> Example1 or Example Title 1</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters: A-Z a-z 0-9</li>
+<li>Must include: A-Z a-z 0-9</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Book<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:title</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:title</span>, <span class="pl-c1">alpha_numeric:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Book</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:title</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:title</span>, <span class="pl-c1">alpha_numeric:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Options: :strict
+Strict: requires not including spaces</p>
+
+<div class="highlight highlight-source-ruby"><pre>validates <span class="pl-c1">:title</span>, <span class="pl-c1">alpha_numeric:</span> { <span class="pl-c1">strict:</span> <span class="pl-c1">true</span> }</pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">Book</span> <span class="pl-k">do</span>
+  it { should ensure_valid_alpha_numeric_format_of(<span class="pl-c1">:title</span>) }
+  it { should_not ensure_valid_alpha_numeric_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="base64validator" class="anchor" href="#base64validator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Base64Validator</h2>
+
+<p><strong>Ex:</strong> YW55IGNhcm5hbCBwbGVhcw==</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters: 0-1 A-Z =</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Code<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:code</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:code</span>, <span class="pl-c1">base64:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Code</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:code</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:code</span>, <span class="pl-c1">base64:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">Code</span> <span class="pl-k">do</span>
+  it { should ensure_valid_base64_format_of(<span class="pl-c1">:code</span>) }
+  it { should_not ensure_valid_base64_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="booleanvalidator" class="anchor" href="#booleanvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>BooleanValidator</h2>
+
+<p><strong>Ex:</strong> true or false or 1 or 0</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters: 0-1</li>
+<li>Equality: true or false</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:active</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:active</span>, <span class="pl-c1">boolean:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:active</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:active</span>, <span class="pl-c1">boolean:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_boolean_format_of(<span class="pl-c1">:active</span>) }
+  it { should_not ensure_valid_boolean_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="coordinatevalidator" class="anchor" href="#coordinatevalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CoordinateValidator</h2>
+
+<p><strong>Ex:</strong> 178.213 or -34.985</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Range: latitude (90 to -90), longitude (180 to -180)</li>
+<li>Characters: 0-9</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c"># :coor =&gt; [78.47, -169.92]</span>
+<span class="pl-c"># :lat  =&gt; 91.23</span>
+<span class="pl-c"># :lon  =&gt; 123.85</span>
+
+<span class="pl-k">class</span> <span class="pl-en">Location<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:coor</span>, <span class="pl-c1">:lat</span>, <span class="pl-c1">:lon</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:coor</span>, <span class="pl-c1">coordinate:</span> <span class="pl-c1">true</span>
+  validates <span class="pl-c1">:lat</span>,  <span class="pl-c1">coordinate:</span> { <span class="pl-c1">boundary:</span> <span class="pl-c1">:latitude</span> }
+  validates <span class="pl-c1">:lon</span>,  <span class="pl-c1">coordinate:</span> { <span class="pl-c1">boundary:</span> <span class="pl-c1">:longitude</span> }
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-c"># :coor =&gt; [78.47, -169.92]</span>
+<span class="pl-c"># :lat  =&gt; 91.23</span>
+<span class="pl-c"># :lon  =&gt; 123.85</span>
+
+<span class="pl-k">class</span> <span class="pl-en">Location</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:coor</span>, <span class="pl-c1">:lat</span>, <span class="pl-c1">:lon</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:coor</span>, <span class="pl-c1">coordinate:</span> <span class="pl-c1">true</span>
+  validates <span class="pl-c1">:lat</span>,  <span class="pl-c1">coordinate:</span> { <span class="pl-c1">boundary:</span> <span class="pl-c1">:latitude</span> }
+  validates <span class="pl-c1">:lon</span>,  <span class="pl-c1">coordinate:</span> { <span class="pl-c1">boundary:</span> <span class="pl-c1">:longitude</span> }
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">Location</span> <span class="pl-k">do</span>
+  it { should ensure_valid_coordinate_format_of(<span class="pl-c1">:coor</span>) }
+  it { should_not ensure_valid_coordinate_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="creditcardvalidator" class="anchor" href="#creditcardvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CreditCardValidator</h2>
+
+<p><strong>Ex:</strong> 370000000000002</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters: 0-9 .-</li>
+<li>Must include: 0-9</li>
+<li>Range for card digits: 12-19</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Invoice<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:cc_number</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:cc_number</span>, <span class="pl-c1">credit_card:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Invoice</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:cc_number</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:cc_number</span>, <span class="pl-c1">credit_card:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Options: :strict, card: [:american_express (:amex), :diners_club, :discover, :jbc, :laser, :maestro, :mastercard, :solo, :unionpay, :visa]
+Strict: requires not including spaces</p>
+
+<div class="highlight highlight-source-ruby"><pre>validates <span class="pl-c1">:cc_number</span>, <span class="pl-c1">credit_card:</span> { <span class="pl-c1">card:</span> <span class="pl-c1">:visa</span> }
+validates <span class="pl-c1">:cc_number</span>, <span class="pl-c1">credit_card:</span> { <span class="pl-c1">strict:</span> <span class="pl-c1">true</span> }
+validates <span class="pl-c1">:cc_number</span>, <span class="pl-c1">credit_card:</span> { <span class="pl-c1">card:</span> <span class="pl-c1">:discover</span>, <span class="pl-c1">strict:</span> <span class="pl-c1">true</span> }</pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">Invoice</span> <span class="pl-k">do</span>
+  it { should ensure_valid_credit_card_format_of(<span class="pl-c1">:cc_number</span>) }
+  it { should_not ensure_valid_credit_card_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="currencyvalidator" class="anchor" href="#currencyvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CurrencyValidator</h2>
+
+<p><strong>Ex:</strong> 123.00 or .1</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters: 0-9 .</li>
+<li>Must include: .</li>
+<li>Range for cents: 1-2</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Product<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:price</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:price</span>, <span class="pl-c1">currency:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Product</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:price</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:price</span>, <span class="pl-c1">currency:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Options: :strict
+Strict: requires leading number and exactly two decimals, 1.45</p>
+
+<div class="highlight highlight-source-ruby"><pre>validates <span class="pl-c1">:price</span>, <span class="pl-c1">currency:</span> { <span class="pl-c1">strict:</span> <span class="pl-c1">true</span> }</pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">Product</span> <span class="pl-k">do</span>
+  it { should ensure_valid_currency_format_of(<span class="pl-c1">:price</span>) }
+  it { should_not ensure_valid_currency_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="cusipvalidator" class="anchor" href="#cusipvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CusipValidator</h2>
+
+<p><strong>Ex:</strong> 125509BG3</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters: 0-1 A-Z</li>
+<li>Length: 1-9</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Bank<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:code</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:code</span>, <span class="pl-c1">cusip:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Bank</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:code</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:code</span>, <span class="pl-c1">cusip:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">Bank</span> <span class="pl-k">do</span>
+  it { should ensure_valid_cusip_format_of(<span class="pl-c1">:code</span>) }
+  it { should_not ensure_cusip_base64_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="emailvalidator" class="anchor" href="#emailvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>EmailValidator</h2>
+
+<p><strong>Ex:</strong> <a href="mailto:user@example.com">user@example.com</a> or <a href="mailto:user+123@example-site.com">user+123@example-site.com</a></p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters in username: a-z 0-9 -_+.</li>
+<li>Must include: @</li>
+<li>Characters in domain: a-z 0-9 -</li>
+<li>Must include extension: .co, .org, .museum</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:email</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:email</span>, <span class="pl-c1">email:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:email</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:email</span>, <span class="pl-c1">email:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Options: :domains</p>
+
+<div class="highlight highlight-source-ruby"><pre>validates <span class="pl-c1">:email</span>, <span class="pl-c1">email:</span> { <span class="pl-c1">domains:</span> <span class="pl-s"><span class="pl-pds">'</span>com<span class="pl-pds">'</span></span> }
+validates <span class="pl-c1">:email</span>, <span class="pl-c1">email:</span> { <span class="pl-c1">domains:</span> <span class="pl-c1">:com</span> }
+validates <span class="pl-c1">:email</span>, <span class="pl-c1">email:</span> { <span class="pl-c1">domains:</span> [<span class="pl-c1">:com</span>, <span class="pl-s"><span class="pl-pds">'</span>edu<span class="pl-pds">'</span></span>] }</pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_email_format_of(<span class="pl-c1">:email</span>) }
+  it { should_not ensure_valid_email_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="equalityvalidator" class="anchor" href="#equalityvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>EqualityValidator</h2>
+
+<p><strong>Operators:</strong></p>
+
+<ul>
+<li>Less than: x &lt; y</li>
+<li>Less than or equal to: x &lt;= y</li>
+<li>Greater than: x &gt; y</li>
+<li>Greater than or equal to: x &gt;= y</li>
+<li>Equal to: x == y</li>
+<li>Not equal to: x != y</li>
+</ul>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Equal and not equal to: cannot be nil</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Auction<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:bid</span>, <span class="pl-c1">:price</span>, <span class="pl-c1">:product</span>
+  validates <span class="pl-c1">:bid</span>, <span class="pl-c1">equality:</span> { <span class="pl-c1">operator:</span> <span class="pl-c1">:greater_than_or_equal_to</span>, <span class="pl-c1">to:</span> <span class="pl-c1">:price</span> }
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Auction</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:bid</span>, <span class="pl-c1">:price</span>, <span class="pl-c1">:product</span>
+  validates <span class="pl-c1">:bid</span>, <span class="pl-c1">equality:</span> { <span class="pl-c1">operator:</span> <span class="pl-c1">:greater_than_or_equal_to</span>, <span class="pl-c1">to:</span> <span class="pl-c1">:price</span> }
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">Auction</span> <span class="pl-k">do</span>
+  it { should ensure_equality_of(<span class="pl-c1">:bid</span>).to(<span class="pl-c1">:price</span>) }
+  it { should_not ensure_equality_of(<span class="pl-c1">:bid</span>).to(<span class="pl-c1">:product</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="hexvalidator" class="anchor" href="#hexvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HexValidator</h2>
+
+<p><strong>Ex:</strong> #a9a9a9 or #999 or aaaaaa or AAA</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Prefix (non-mandatory): #</li>
+<li>Length: 3 or 6</li>
+<li>Characters: A-F a-f 0-9</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Profile<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:color</span>, <span class="pl-c1">:trim</span>
+  validates <span class="pl-c1">:color</span>, <span class="pl-c1">hex:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Profile</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:color</span>, <span class="pl-c1">:trim</span>
+  validates <span class="pl-c1">:color</span>, <span class="pl-c1">hex:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">Color</span> <span class="pl-k">do</span>
+  it { should ensure_valid_hex_format_of(<span class="pl-c1">:color</span>) }
+  it { should_not ensure_valid_hex_format_of(<span class="pl-c1">:trim</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="imeivalidator" class="anchor" href="#imeivalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ImeiValidator</h2>
+
+<p><strong>Ex:</strong> 356843052637512 or 35-6843052-637512 or 35.6843052.637512</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Length: min 14</li>
+<li>Characters: 0-9 -.</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:imei</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:imei</span>, <span class="pl-c1">imei:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:imei</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:imei</span>, <span class="pl-c1">imei:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_imei_format_of(<span class="pl-c1">:imei</span>) }
+  it { should_not ensure_valid_imei_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="ipvalidator" class="anchor" href="#ipvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>IpValidator</h2>
+
+<p><strong>Ex:</strong> 0.0.0.0 or 127.0.0.1 or 167.39.240.31</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Length: min 7</li>
+<li>Characters: 0-9 .</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:ip</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:ip</span>, <span class="pl-c1">ip:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:ip</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:ip</span>, <span class="pl-c1">ip:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_ip_format_of(<span class="pl-c1">:ip</span>) }
+  it { should_not ensure_valid_ip_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="isbnvalidator" class="anchor" href="#isbnvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>IsbnValidator</h2>
+
+<p><strong>Ex:</strong> 9519854894 or 0-9722051-1-x or 978 159059 9938</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Length: 10 or 13</li>
+<li>Characters: 0-9 -|</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:isbn</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:isbn</span>, <span class="pl-c1">isbn:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:isbn</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:isbn</span>, <span class="pl-c1">isbn:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_isbn_format_of(<span class="pl-c1">:isbn</span>) }
+  it { should_not ensure_valid_isbn_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="isinvalidator" class="anchor" href="#isinvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>IsinValidator</h2>
+
+<p><strong>Ex:</strong> US0378331005 or AU0000XVGZA3</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Length: 12</li>
+<li>Characters: 0-9 A-Z</li>
+<li>Start: valid country code</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Trade<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:isin</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:isin</span>, <span class="pl-c1">isin:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:isin</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:isin</span>, <span class="pl-c1">isin:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_isin_format_of(<span class="pl-c1">:isin</span>) }
+  it { should_not ensure_valid_isin_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="macaddressvalidator" class="anchor" href="#macaddressvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MacAddressValidator</h2>
+
+<p><strong>Ex:</strong>
+    '08:00:2b:01:02:03'
+    '08-00-2b-01-02-03'
+    '08002b:010203'
+    '08002b-010203'
+    '0800.2b01.0203'
+    '08002b010203'</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters: a-z 0-9 -.:</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Device<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:mac</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:mac</span>, <span class="pl-c1">mac_address:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Device</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:mac</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:mac</span>, <span class="pl-c1">mac_address:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">Device</span> <span class="pl-k">do</span>
+  it { should ensure_valid_mac_address_format_of }
+  it { should_not ensure_valid_mac_address_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="namevalidator" class="anchor" href="#namevalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NameValidator</h2>
+
+<p><strong>Ex:</strong> James Brown or Billy Bob Thorton Jr</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Range: 2 - 5 names</li>
+<li>Characters: a-z -</li>
+<li>Must include: First Last</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:name</span>, <span class="pl-c1">:email</span>
+  validates <span class="pl-c1">:name</span>, <span class="pl-c1">name:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:name</span>, <span class="pl-c1">:email</span>
+  validates <span class="pl-c1">:name</span>, <span class="pl-c1">name:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_name_format_of(<span class="pl-c1">:name</span>) }
+  it { should_not ensure_valid_name_format_of(<span class="pl-c1">:email</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="passwordvalidator" class="anchor" href="#passwordvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PasswordValidator</h2>
+
+<p><strong>Ex:</strong> password or password123 or pa!!word</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Range: 6-18</li>
+<li>Characters: A-Z a-z 0-9 -_!@#$%^&amp;*</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:password</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:password</span>, <span class="pl-c1">password:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:password</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:password</span>, <span class="pl-c1">password:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Options: :strict
+Strict: requires length between 6 and 18, one number, lowercase, upcase letter</p>
+
+<div class="highlight highlight-source-ruby"><pre>validates <span class="pl-c1">:password</span>, <span class="pl-c1">password:</span> { <span class="pl-c1">strict:</span> <span class="pl-c1">true</span> }</pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_password_format_of(<span class="pl-c1">:password</span>) }
+  it { should_not ensure_valid_password_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="phonevalidator" class="anchor" href="#phonevalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>PhoneValidator</h2>
+
+<p><strong>Ex:</strong> 555 333 4444 or (555) 123-4567 or +1 (555) 123 4567 ext-890</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters: a-z 0-9 -()+</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:phone</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:phone</span>, <span class="pl-c1">phone:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:phone</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:phone</span>, <span class="pl-c1">phone:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_phone_format_of(<span class="pl-c1">:phone</span>) }
+  it { should_not ensure_valid_phone_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="sedolvalidator" class="anchor" href="#sedolvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SedolValidator</h2>
+
+<p><strong>Ex:</strong> B0WNLY7</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters: A-Z 0-9</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Trade<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:sedol</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:sedol</span>, <span class="pl-c1">sedol:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Trade</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:sedol</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:sedol</span>, <span class="pl-c1">sedol:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">Trade</span> <span class="pl-k">do</span>
+  it { should ensure_valid_sedol_format_of(<span class="pl-c1">:sedol</span>) }
+  it { should_not ensure_valid_sedol_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="slugvalidator" class="anchor" href="#slugvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SlugValidator</h2>
+
+<p><strong>Ex:</strong> slug1234 or slug-1234</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters: a-z 0-9 -</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:slug</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:slug</span>, <span class="pl-c1">slug:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:slug</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:slug</span>, <span class="pl-c1">slug:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_slug_format_of(<span class="pl-c1">:slug</span>) }
+  it { should_not ensure_valid_slug_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="ssnvalidator" class="anchor" href="#ssnvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SsnValidator</h2>
+
+<p><strong>Ex:</strong> 333-22-4444 or 333224444</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters: 0-9 -</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:ssn</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:ssn</span>, <span class="pl-c1">ssn:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:ssn</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:ssn</span>, <span class="pl-c1">ssn:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_ssn_format_of(<span class="pl-c1">:ssn</span>) }
+  it { should_not ensure_valid_ssn_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="trackingnumbervalidator" class="anchor" href="#trackingnumbervalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TrackingNumberValidator</h2>
+
+<p><strong>Ex:</strong> 1Z8V92A70367203024</p>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Package<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:tracking_number</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:tracking_number</span>, <span class="pl-c1">tracking_number:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">Package</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:tracking_number</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:tracking_number</span>, <span class="pl-c1">tracking_number:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Options:</p>
+
+<ul>
+<li>carrier: :dhl, :fedex, :ontrac, :ups, :usps</li>
+<li>service: :express, :express_air, :ground, :ground18, :ground96, :smart_post, :usps13, :usps20, :usps91</li>
+</ul>
+
+<div class="highlight highlight-source-ruby"><pre>validates <span class="pl-c1">:tracking_number</span>, <span class="pl-c1">tracking_number:</span> { <span class="pl-c1">carrier:</span> <span class="pl-c1">:dhl</span> }
+validates <span class="pl-c1">:tracking_number</span>, <span class="pl-c1">tracking_number:</span> { <span class="pl-c1">carrier:</span> <span class="pl-c1">:fedex</span>, <span class="pl-c1">service:</span> <span class="pl-c1">:express</span> }</pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">Package</span> <span class="pl-k">do</span>
+  it { should ensure_valid_tracking_number_format_of(<span class="pl-c1">:tracking_number</span>) }
+  it { should_not ensure_valid_tracking_number_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="typevalidator" class="anchor" href="#typevalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TypeValidator</h2>
+
+<p><strong>Ex:</strong> Boolean or String</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Any valid ruby class</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:active</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:active</span>, <span class="pl-c1">type:</span> <span class="pl-c1">Boolean</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:active</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:active</span>, <span class="pl-c1">type:</span> <span class="pl-c1">Boolean</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_type_format_of(<span class="pl-c1">:active</span>) }
+  it { should_not ensure_valid_type_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="urlvalidator" class="anchor" href="#urlvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UrlValidator</h2>
+
+<p><strong>Ex:</strong> example.com or <a href="http://www.example.com">http://www.example.com</a></p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters in root: a-z 0-9 -.//:</li>
+<li>Characters in domain: a-z 0-9 -</li>
+<li>Must include extension: .co, .org, .museum</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:url</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:url</span>, <span class="pl-c1">url:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:url</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:url</span>, <span class="pl-c1">url:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Options: :domains, :root, :scheme</p>
+
+<div class="highlight highlight-source-ruby"><pre>validates <span class="pl-c1">:url</span>, <span class="pl-c1">url:</span> { <span class="pl-c1">scheme:</span> <span class="pl-c1">:http</span> }
+validates <span class="pl-c1">:url</span>, <span class="pl-c1">url:</span> { <span class="pl-c1">scheme:</span> [<span class="pl-c1">:http</span>, <span class="pl-s"><span class="pl-pds">'</span>https<span class="pl-pds">'</span></span>] }
+validates <span class="pl-c1">:url</span>, <span class="pl-c1">url:</span> { <span class="pl-c1">scheme:</span> <span class="pl-c1">:http</span>, <span class="pl-c1">root:</span> <span class="pl-c1">true</span>, <span class="pl-c1">domains:</span> <span class="pl-c1">:com</span> }
+validates <span class="pl-c1">:url</span>, <span class="pl-c1">url:</span> { <span class="pl-c1">root:</span> <span class="pl-c1">true</span> }
+validates <span class="pl-c1">:url</span>, <span class="pl-c1">url:</span> { <span class="pl-c1">root:</span> <span class="pl-c1">true</span>, <span class="pl-c1">domains:</span> <span class="pl-c1">:com</span> }
+validates <span class="pl-c1">:url</span>, <span class="pl-c1">url:</span> { <span class="pl-c1">domains:</span> <span class="pl-s"><span class="pl-pds">'</span>com<span class="pl-pds">'</span></span> }
+validates <span class="pl-c1">:url</span>, <span class="pl-c1">url:</span> { <span class="pl-c1">domains:</span> <span class="pl-c1">:com</span> }
+validates <span class="pl-c1">:url</span>, <span class="pl-c1">url:</span> { <span class="pl-c1">domains:</span> [<span class="pl-c1">:com</span>, <span class="pl-s"><span class="pl-pds">'</span>edu<span class="pl-pds">'</span></span>] }</pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_url_format_of(<span class="pl-c1">:url</span>) }
+  it { should_not ensure_valid_url_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="usernamevalidator" class="anchor" href="#usernamevalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UsernameValidator</h2>
+
+<p><strong>Ex:</strong> username123 or username</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Range: 2-16</li>
+<li>Characters: a-z 0-9 -_</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:username</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:username</span>, <span class="pl-c1">username:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:username</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:username</span>, <span class="pl-c1">username:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_username_format_of(<span class="pl-c1">:username</span>) }
+  it { should_not ensure_valid_username_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="uuidvalidator" class="anchor" href="#uuidvalidator" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UuidValidator</h2>
+
+<p><strong>Ex:</strong> 886313e1-3b8a-5372-9b90-0c9aee199e5d</p>
+
+<p><strong>Rules:</strong></p>
+
+<ul>
+<li>Characters: A-Z a-z 0-9 -</li>
+</ul>
+
+<p>With an ActiveRecord model:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:uuid</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:uuid</span>, <span class="pl-c1">uuid:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Or any ruby class:</p>
+
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User</span>
+  <span class="pl-k">include</span> <span class="pl-c1">ActiveModel</span>::<span class="pl-c1">Validations</span>
+  <span class="pl-k">attr_accessor</span> <span class="pl-c1">:uuid</span>, <span class="pl-c1">:name</span>
+  validates <span class="pl-c1">:uuid</span>, <span class="pl-c1">username:</span> <span class="pl-c1">true</span>
+<span class="pl-k">end</span></pre></div>
+
+<p>Options: :version</p>
+
+<div class="highlight highlight-source-ruby"><pre>validates <span class="pl-c1">:uuid</span>, <span class="pl-c1">uuid:</span> { <span class="pl-c1">version:</span> <span class="pl-c1">3</span> }</pre></div>
+
+<p>RSpec matcher is also available for your convenience:</p>
+
+<div class="highlight highlight-source-ruby"><pre>describe <span class="pl-c1">User</span> <span class="pl-k">do</span>
+  it { should ensure_valid_uuid_format_of(<span class="pl-c1">:uuid</span>) }
+  it { should_not ensure_valid_uuid_format_of(<span class="pl-c1">:name</span>) }
+<span class="pl-k">end</span></pre></div>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Your contribution is welcome.</p>
+
+<ol>
+<li>Fork it</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Added some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create new Pull Request</li>
+</ol>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/drexed">drexed</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
