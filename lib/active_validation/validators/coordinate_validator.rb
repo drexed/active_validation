@@ -1,10 +1,11 @@
 class CoordinateValidator < ActiveModel::EachValidator
 
+  # rubocop:disable Metrics/LineLength
   def validate_each(record, attribute, value)
     boundary = options[:boundary] || :coordinate
     unless BOUNDARIES.include?(boundary)
       raise ArgumentError,
-        "Unknown boundary: #{boundary.inspect}. Valid boundaries are: #{BOUNDARIES.map(&:inspect).join(', ')}"
+            "Unknown boundary: #{boundary.inspect}. Valid boundaries are: #{BOUNDARIES.map(&:inspect).join(', ')}"
     end
 
     unless valid?(value, options)
@@ -12,10 +13,11 @@ class CoordinateValidator < ActiveModel::EachValidator
         (options[:message] || I18n.t("active_validation.errors.messages.coordinate.#{boundary}"))
     end
   end
+  # rubocop:enable Metrics/LineLength
 
   private
 
-  BOUNDARIES = [:coordinate, :latitude, :longitude]
+  BOUNDARIES = [:coordinate, :latitude, :longitude].freeze
 
   def valid_latitude?(value)
     value >= -90 && value <= 90

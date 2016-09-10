@@ -10,7 +10,7 @@ class PhoneValidator < ActiveModel::EachValidator
   private
 
   def valid_format?(value)
-    value =~ /^[0-9+\(\)#\.\s\/ext-]+$/i
+    value =~ %r{^[0-9+\(\)#\.\s\/ext-]+$}
   end
 
   def valid_length?(value)

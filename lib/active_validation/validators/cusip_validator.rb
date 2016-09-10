@@ -9,15 +9,17 @@ class CusipValidator < ActiveModel::EachValidator
 
   private
 
+  # rubocop:disable Lint/UselessAssignment
   def valid_checksum?(value)
-    digits = value.chars.map { |chr| chr.match(/[A-Z]/) ? (chr.ord - 55) : chr.to_i }
-    even_values = digits.values_at(* digits.each_index.select { |idx| idx.even? })
-    odd_values = digits.values_at(* digits.each_index.select { |idx| idx.odd? })
+    digits = value.chars.map { |chr| chr =~ /[A-Z]/ ? (chr.ord - 55) : chr.to_i }
+    even_values = digits.values_at(* digits.each_index.select(&:even?))
+    odd_values = digits.values_at(* digits.each_index.select(&:odd?))
     values = odd_values.map { |int| int * 2 }.zip(even_values).flatten
     values = values.inject(0) { |sum, int| sum += (int / 10) + int % 10 }
 
     ((10 - values) % 10) % 10
   end
+  # rubocop:enable Lint/UselessAssignment
 
   def valid_format?(value)
     value =~ /^[0-9A-Z]{9}$/

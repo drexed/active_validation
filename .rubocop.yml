@@ -6,13 +6,19 @@ AllCops:
     - 'spec/**/**/*'
 LineLength:
   Max: 100
+Metrics/AbcSize:
+  Enabled: false
 Metrics/ClassLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
   Enabled: false
 Metrics/MethodLength:
   Enabled: false
 Metrics/ModuleLength:
   Enabled: false
 Metrics/ParameterLists:
+  Enabled: false
+Metrics/PerceivedComplexity:
   Enabled: false
 Style/Alias:
   EnforcedStyle: prefer_alias_method
@@ -43,4 +49,6 @@ Style/MultilineMethodCallIndentation:
 Style/NumericLiterals:
   Enabled: false
 Style/RescueModifier:
+  Enabled: false
+Style/SingleLineBlockParams:
   Enabled: false

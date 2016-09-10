@@ -13,11 +13,14 @@ class MacAddressValidator < ActiveModel::EachValidator
     /^([\h]{2}:){5}[\h]{2}?$/i, /^([\h]{2}[-|\.|\s]){5}[\h]{2}?$/i,
     /^([\h]{6})[-|\.][\h]{6}?$/i, /^([\h]{6}):[\h]{6}?$/i,
     /^([\h]{4}[-|\.|\s]){2}[\h]{4}?$/i, /^[\h]{12}?$/i
-  ]
+  ].freeze
 
   def valid_format?(value)
     result = false
-    DEFAULT_FORMATS.each { |pat| break if result = (value =~ pat) }
+    DEFAULT_FORMATS.each do |pat|
+      result = (value =~ pat)
+      break if result
+    end
     result
   end
 

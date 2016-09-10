@@ -13,13 +13,13 @@ class AlphaValidator < ActiveModel::EachValidator
     strict = options[:strict]
 
     value =~ case options[:case]
-    when :lower
-      strict ? /^[a-z]+$/ : /^[a-z ]+$/
-    when :upper
-      strict ? /^[A-Z]+$/ : /^[A-Z ]+$/
-    else
-      strict ? /^[A-Za-z]+$/i : /^[A-Za-z ]+$/i
-    end
+             when :lower
+               strict ? /^[a-z]+$/ : /^[a-z ]+$/
+             when :upper
+               strict ? /^[A-Z]+$/ : /^[A-Z ]+$/
+             else
+               strict ? /^[A-Za-z]+$/i : /^[A-Za-z ]+$/i
+             end
   end
 
   def valid_length?(value)

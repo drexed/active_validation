@@ -11,7 +11,7 @@ class UrlValidator < ActiveModel::EachValidator
 
   private
 
-  DEFAULT_SCHEMES = [:http, :https]
+  DEFAULT_SCHEMES = [:http, :https].freeze
 
   def valid_domain?(value, options)
     value_downcased = value.host.to_s.downcase
@@ -32,15 +32,15 @@ class UrlValidator < ActiveModel::EachValidator
   end
 
   def valid_uri?(value)
-    value.kind_of?(URI::Generic)
+    value.is_a?(URI::Generic)
   end
 
   def valid?(value, options)
     valid_length?(value) &&
-    valid_uri?(value) &&
-    valid_domain?(value, [*(options[:domain])]) &&
-    valid_scheme?(value, [*(options[:scheme] || UrlValidator::DEFAULT_SCHEMES)]) &&
-    (options[:root] ? valid_root?(value) : true)
+      valid_uri?(value) &&
+      valid_domain?(value, [*(options[:domain])]) &&
+      valid_scheme?(value, [*(options[:scheme] || UrlValidator::DEFAULT_SCHEMES)]) &&
+      (options[:root] ? valid_root?(value) : true)
   end
 
 end

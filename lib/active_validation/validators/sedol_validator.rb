@@ -10,7 +10,7 @@ class SedolValidator < ActiveModel::EachValidator
   private
 
   def valid_checksum?(value)
-    digits = value.chars.map { |dgt| dgt.match(/[A-Z]/) ? (dgt.ord - 55) : dgt.to_i }
+    digits = value.chars.map { |dgt| dgt =~ /[A-Z]/ ? (dgt.ord - 55) : dgt.to_i }
     weights = [1, 3, 1, 7, 3, 9, 1]
 
     total = 0

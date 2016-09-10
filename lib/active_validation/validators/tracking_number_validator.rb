@@ -24,7 +24,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
       usps20: /^([0-9]{2,2})([0-9]{9,9})([0-9]{8,8})([0-9])$/,
       usps91: /^(?:420\d{5})?(9[1-5](?:[0-9]{19}|[0-9]{23}))([0-9])$/
     }
-  }
+  }.freeze
 
   # DHL
   DEFAULT_CARRIERS_AND_SERVICES[:dhl].each do |service, pattern|
@@ -74,8 +74,8 @@ class TrackingNumberValidator < ActiveModel::EachValidator
         check = total % 10
         check = (10 - check) unless check.zero?
         check == check_digit.to_i
+      end
     end
-  end
 
   def valid_fedex_smart_post_checksum?(value)
     value = "92#{value}" unless value =~ /^92/
@@ -142,11 +142,11 @@ class TrackingNumberValidator < ActiveModel::EachValidator
 
     remainder = total % 11
     check = case remainder
-    when 1 then 0;
-    when 0 then 5;
-    else
-      11 - remainder
-    end
+            when 1 then 0
+            when 0 then 5
+            else
+              11 - remainder
+            end
 
     check == check_digit
   end
@@ -219,7 +219,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
       result = send("valid_#{carrier}_#{service}_checksum?", value)
     end
 
-    return(result)
+    result
   end
 
   def valid_length?(value)
