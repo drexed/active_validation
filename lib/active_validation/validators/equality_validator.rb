@@ -4,19 +4,19 @@ class EqualityValidator < ActiveModel::EachValidator
     to = options.fetch(:to, nil)
     if to.nil?
       raise ArgumentError,
-        "ArgumentError: missing ':to' attribute for comparison."
+        'ArgumentError: missing ":to" attribute for comparison.'
     end
 
     operator = options.fetch(:operator, nil)
     operators = OPERATORS.keys
     unless operators.include?(operator)
       raise ArgumentError,
-        "Unknown operator: #{operator.inspect}. Valid operators are: #{operators.map(&:inspect).join(", ")}"
+        "Unknown operator: #{operator.inspect}. Valid operators are: #{operators.map(&:inspect).join(', ')}"
     end
     operator = OPERATORS.fetch(operator)
 
     unless value.send(operator, record.send(to))
-      record.errors[attribute] << options.fetch(:message, I18n.t("active_validation.errors.messages.equality", attr: to, operator: operator))
+      record.errors[attribute] << options.fetch(:message, I18n.t('active_validation.errors.messages.equality', attr: to, operator: operator))
     end
   end
 

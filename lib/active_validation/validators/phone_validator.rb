@@ -2,7 +2,7 @@ class PhoneValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s)
-      record.errors[attribute] << options.fetch(:message, I18n.t("active_validation.errors.messages.phone"))
+      record.errors[attribute] << options.fetch(:message, I18n.t('active_validation.errors.messages.phone'))
     end
   end
 

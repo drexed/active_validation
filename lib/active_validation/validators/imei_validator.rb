@@ -2,7 +2,7 @@ class ImeiValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s)
-      record.errors[attribute] << options.fetch(:message, I18n.t("active_validation.errors.messages.imei"))
+      record.errors[attribute] << options.fetch(:message, I18n.t('active_validation.errors.messages.imei'))
     end
   end
 
@@ -17,7 +17,7 @@ class ImeiValidator < ActiveModel::EachValidator
   end
 
   def valid_luhn?(value)
-    number = value.gsub(/\D/, "").reverse
+    number = value.gsub(/\D/, '').reverse
 
     total = 0
     number.chars.each_with_index do |c, i|

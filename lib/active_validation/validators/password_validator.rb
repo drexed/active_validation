@@ -2,7 +2,7 @@ class PasswordValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s, options)
-      record.errors[attribute] << options.fetch(:message, I18n.t("active_validation.errors.messages.password"))
+      record.errors[attribute] << options.fetch(:message, I18n.t('active_validation.errors.messages.password'))
     end
   end
 

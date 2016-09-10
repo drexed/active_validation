@@ -2,115 +2,115 @@ en:
   active_validation:
     errors:
       messages:
-        alpha: "is not a valid alpha characters"
-        alpha_numeric: "is not a valid alpha-numeric characters"
-        base64: "is not a valid Base64 encode"
-        boolean: "is not a valid boolean"
+        alpha: 'is not a valid alpha characters'
+        alpha_numeric: 'is not a valid alpha-numeric characters'
+        base64: 'is not a valid Base64 encode'
+        boolean: 'is not a valid boolean'
         coordinate:
-          coordinate: "is not a valid coordinate"
-          latitude: "is not a valid latitude"
-          longitude: "is not a valid longitude"
-        credit_card: "is not a valid credit card"
-        currency: "is not a valid currency"
-        cusip: "is not a valid CUSIP"
-        email: "is not a valid email"
-        equality: "is not %{operator} %{attr}"
-        hex: "is not a valid hex color"
-        imei: "is not a valid IMEI"
-        ip: "is not a valid IP"
-        isbn: "is not a valid ISBN"
-        isin: "is not a valid ISIN"
-        mac_address: "is not a valid MAC address"
-        name: "is not a valid name"
-        password: "is not a valid password"
-        phone: "is not a valid phone number"
-        sedol: "is not a valid SEDOL"
-        slug: "is not a valid slug"
-        ssn: "is not a valid social security number"
-        tracking_number: "is not a valid tracking number"
-        type: "is not a valid type"
-        url: "is not a valid URL"
-        username: "is not a valid username"
-        uuid: "is not a valid UUID"
+          coordinate: 'is not a valid coordinate'
+          latitude: 'is not a valid latitude'
+          longitude: 'is not a valid longitude'
+        credit_card: 'is not a valid credit card'
+        currency: 'is not a valid currency'
+        cusip: 'is not a valid CUSIP'
+        email: 'is not a valid email'
+        equality: 'is not %{operator} %{attr}'
+        hex: 'is not a valid hex color'
+        imei: 'is not a valid IMEI'
+        ip: 'is not a valid IP'
+        isbn: 'is not a valid ISBN'
+        isin: 'is not a valid ISIN'
+        mac_address: 'is not a valid MAC address'
+        name: 'is not a valid name'
+        password: 'is not a valid password'
+        phone: 'is not a valid phone number'
+        sedol: 'is not a valid SEDOL'
+        slug: 'is not a valid slug'
+        ssn: 'is not a valid social security number'
+        tracking_number: 'is not a valid tracking number'
+        type: 'is not a valid type'
+        url: 'is not a valid URL'
+        username: 'is not a valid username'
+        uuid: 'is not a valid UUID'
       matchers:
         ensure_valid_alpha_format_of:
-          failure_message_for_should: "%{model} should ensure valid alpha format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid alpha format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid alpha format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid alpha format of attribute %{attr}'
         ensure_valid_alpha_numeric_format_of:
-          failure_message_for_should: "%{model} should ensure valid alpha numeric format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid alpha numeric format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid alpha numeric format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid alpha numeric format of attribute %{attr}'
         ensure_valid_base64_format_of:
-          failure_message_for_should: "%{model} should ensure valid Base64 encoded format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid Base64 encoded format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid Base64 encoded format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid Base64 encoded format of attribute %{attr}'
         ensure_valid_boolean_format_of:
-          failure_message_for_should: "%{model} should ensure valid boolean format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid boolean format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid boolean format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid boolean format of attribute %{attr}'
         ensure_valid_coordinate_format_of:
-          failure_message_for_should: "%{model} should ensure valid coordinate format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid coordinate format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid coordinate format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid coordinate format of attribute %{attr}'
         ensure_valid_credit_card_format_of:
-          failure_message_for_should: "%{model} should ensure valid credit card format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid credit card format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid credit card format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid credit card format of attribute %{attr}'
         ensure_valid_currency_format_of:
-          failure_message_for_should: "%{model} should ensure valid currency format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid currency format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid currency format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid currency format of attribute %{attr}'
         ensure_valid_cusip_format_of:
-          failure_message_for_should: "%{model} should ensure valid CUSIP format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid CUSIP format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid CUSIP format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid CUSIP format of attribute %{attr}'
         ensure_valid_email_format_of:
-          failure_message_for_should: "%{model} should ensure valid email format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid email format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid email format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid email format of attribute %{attr}'
         ensure_valid_equality_format_of:
-          failure_message_for_should: "%{model} should ensure equality of %{operator} on attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure equality of %{operator} on attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure equality of %{operator} on attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure equality of %{operator} on attribute %{attr}'
         ensure_valid_hex_format_of:
-          failure_message_for_should: "%{model} should ensure valid hex format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid hex format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid hex format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid hex format of attribute %{attr}'
         ensure_valid_imei_format_of:
-          failure_message_for_should: "%{model} should ensure valid IMEI address format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid IMEI address format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid IMEI address format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid IMEI address format of attribute %{attr}'
         ensure_valid_ip_format_of:
-          failure_message_for_should: "%{model} should ensure valid IP address format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid IP address format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid IP address format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid IP address format of attribute %{attr}'
         ensure_valid_isbn_format_of:
-          failure_message_for_should: "%{model} should ensure valid ISBN format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid ISBN format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid ISBN format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid ISBN format of attribute %{attr}'
         ensure_valid_isin_format_of:
-          failure_message_for_should: "%{model} should ensure valid ISIN format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid ISIN format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid ISIN format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid ISIN format of attribute %{attr}'
         ensure_valid_mac_address_format_of:
-          failure_message_for_should: "%{model} should ensure valid MAC address format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid MAC address format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid MAC address format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid MAC address format of attribute %{attr}'
         ensure_valid_name_format_of:
-          failure_message_for_should: "%{model} should ensure valid name format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid name format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid name format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid name format of attribute %{attr}'
         ensure_valid_password_format_of:
-          failure_message_for_should: "%{model} should ensure valid password format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid password format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid password format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid password format of attribute %{attr}'
         ensure_valid_phone_format_of:
-          failure_message_for_should: "%{model} should ensure valid phone format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid phone format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid phone format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid phone format of attribute %{attr}'
         ensure_valid_sedol_format_of:
-          failure_message_for_should: "%{model} should ensure valid SEDOL format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid SEDOL format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid SEDOL format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid SEDOL format of attribute %{attr}'
         ensure_valid_slug_format_of:
-          failure_message_for_should: "%{model} should ensure valid slug format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid slug format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid slug format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid slug format of attribute %{attr}'
         ensure_valid_ssn_format_of:
-          failure_message_for_should: "%{model} should ensure valid SSN format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid SSN format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid SSN format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid SSN format of attribute %{attr}'
         ensure_valid_tracking_number_format_of:
-          failure_message_for_should: "%{model} should ensure valid tracking number format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid tracking number format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid tracking number format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid tracking number format of attribute %{attr}'
         ensure_valid_type_format_of:
-          failure_message_for_should: "%{model} should ensure valid type of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid type of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid type of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid type of attribute %{attr}'
         ensure_valid_url_format_of:
-          failure_message_for_should: "%{model} should ensure valid URL format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid URL format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid URL format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid URL format of attribute %{attr}'
         ensure_valid_username_format_of:
-          failure_message_for_should: "%{model} should ensure valid username format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid username format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid username format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid username format of attribute %{attr}'
         ensure_valid_uuid_format_of:
-          failure_message_for_should: "%{model} should ensure valid UUID format of attribute %{attr}"
-          failure_message_for_should_not: "%{model} should not ensure valid UUID format of attribute %{attr}"
+          failure_message_for_should: '%{model} should ensure valid UUID format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid UUID format of attribute %{attr}'

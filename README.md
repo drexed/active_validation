@@ -16,7 +16,7 @@ Highly recommended validators:
 
 Add this line to your application's Gemfile:
 
-    gem "active_validation"
+    gem 'active_validation'
 
 And then execute:
 

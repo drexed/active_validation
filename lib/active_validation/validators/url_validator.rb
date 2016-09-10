@@ -1,11 +1,11 @@
-require "uri"
+require 'uri'
 class UrlValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     uri = URI.parse(value.to_s)
     raise URI::InvalidURIError unless valid?(uri, options)
   rescue URI::InvalidURIError
-    record.errors[attribute] << options.fetch(:message, I18n.t("active_validation.errors.messages.url"))
+    record.errors[attribute] << options.fetch(:message, I18n.t('active_validation.errors.messages.url'))
   end
 
   private
@@ -27,7 +27,7 @@ class UrlValidator < ActiveModel::EachValidator
   end
 
   def valid_root?(value)
-    ["/", ""].include?(value.path) && value.query.blank? && value.fragment.blank?
+    ['/', ''].include?(value.path) && value.query.blank? && value.fragment.blank?
   end
 
   def valid_uri?(value)
