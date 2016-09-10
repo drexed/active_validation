@@ -5,7 +5,8 @@ class UrlValidator < ActiveModel::EachValidator
     uri = URI.parse(value.to_s)
     raise URI::InvalidURIError unless valid?(uri, options)
   rescue URI::InvalidURIError
-    record.errors[attribute] << options.fetch(:message, I18n.t('active_validation.errors.messages.url'))
+    record.errors[attribute] <<
+      (options[:message] || I18n.t('active_validation.errors.messages.url'))
   end
 
   private
@@ -37,9 +38,9 @@ class UrlValidator < ActiveModel::EachValidator
   def valid?(value, options)
     valid_length?(value) &&
     valid_uri?(value) &&
-    valid_domain?(value, [*(options.fetch(:domain, nil))]) &&
-    valid_scheme?(value, [*(options.fetch(:scheme, UrlValidator::DEFAULT_SCHEMES))]) &&
-    (options.fetch(:root, false) ? valid_root?(value) : true)
+    valid_domain?(value, [*(options[:domain])]) &&
+    valid_scheme?(value, [*(options[:scheme] || UrlValidator::DEFAULT_SCHEMES)]) &&
+    (options[:root] ? valid_root?(value) : true)
   end
 
 end

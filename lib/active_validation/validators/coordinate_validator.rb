@@ -1,14 +1,15 @@
 class CoordinateValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
-    boundary = options.fetch(:boundary, :coordinate)
+    boundary = options[:boundary] || :coordinate
     unless BOUNDARIES.include?(boundary)
       raise ArgumentError,
         "Unknown boundary: #{boundary.inspect}. Valid boundaries are: #{BOUNDARIES.map(&:inspect).join(', ')}"
     end
 
     unless valid?(value, options)
-      record.errors[attribute] << options.fetch(:message, I18n.t("active_validation.errors.messages.coordinate.#{boundary}"))
+      record.errors[attribute] <<
+        (options[:message] || I18n.t("active_validation.errors.messages.coordinate.#{boundary}"))
     end
   end
 
@@ -29,7 +30,7 @@ class CoordinateValidator < ActiveModel::EachValidator
   end
 
   def valid_boundary?(value, options)
-    case options.fetch(:boundary, :coordinate)
+    case options[:boundary]
     when :latitude
       valid_latitude?(value)
     when :longitude

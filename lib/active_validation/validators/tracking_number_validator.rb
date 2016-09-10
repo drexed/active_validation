@@ -2,7 +2,8 @@ class TrackingNumberValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s, options)
-      record.errors[attribute] << options.fetch(:message, I18n.t('active_validation.errors.messages.tracking_number'))
+      record.errors[attribute] <<
+        (options[:message] || I18n.t('active_validation.errors.messages.tracking_number'))
     end
   end
 
@@ -193,8 +194,8 @@ class TrackingNumberValidator < ActiveModel::EachValidator
 
   # Base
   def valid_checksum?(value, options)
-    carrier = options.fetch(:carrier, nil)
-    service = options.fetch(:service, nil)
+    carrier = options[:carrier]
+    service = options[:service]
     result = false
 
     if carrier.nil? && service.nil?

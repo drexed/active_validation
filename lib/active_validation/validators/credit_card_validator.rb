@@ -2,7 +2,8 @@ class CreditCardValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s, options)
-      record.errors[attribute] << options.fetch(:message, I18n.t('active_validation.errors.messages.credit_card'))
+      record.errors[attribute] <<
+        (options[:message] || I18n.t('active_validation.errors.messages.credit_card'))
     end
   end
 
@@ -40,18 +41,18 @@ class CreditCardValidator < ActiveModel::EachValidator
   }
 
   def valid_format?(value, options)
-    value =~ (options.fetch(:strict, false) ? /^[0-9]+$/ : /^[0-9 -.]+$/)
+    value =~ (options[:strict] ? /^[0-9]+$/ : /^[0-9 -.]+$/)
   end
 
   def valid_length?(value, options)
     return(false) unless value.present?
 
-    current_card = options.fetch(:card, :all)
+    current_card = options[:card] || :all
     value_size = value.size
 
     case current_card
     when :amex
-      DEFAULT_LENGTHS.fetch(:american_express).include?(value_size)
+      DEFAULT_LENGTHS[:american_express].include?(value_size)
     when :all
       value_size_range = DEFAULT_LENGTHS.values.flatten.uniq.sort
       value_size.between?(value_size_range.first, value_size_range.last)
@@ -61,11 +62,11 @@ class CreditCardValidator < ActiveModel::EachValidator
   end
 
   def valid_prefix?(value, options)
-    current_card = options.fetch(:card, :all)
+    current_card = options[:card] || :all
 
     case current_card
     when :amex
-      DEFAULT_PREFIXES.fetch(:american_express).any? { |p| value.start_with?(p) }
+      DEFAULT_PREFIXES[:american_express].any? { |p| value.start_with?(p) }
     when :all
       result = false
       DEFAULT_LENGTHS.each do |key, values|

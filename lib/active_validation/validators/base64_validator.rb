@@ -2,7 +2,8 @@ class Base64Validator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     unless valid?(value.to_s)
-      record.errors[attribute] << options.fetch(:message, I18n.t('active_validation.errors.messages.base64'))
+      record.errors[attribute] <<
+        (options[:message] || I18n.t('active_validation.errors.messages.base64'))
     end
   end
 
