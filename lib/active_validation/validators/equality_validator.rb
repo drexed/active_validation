@@ -13,8 +13,8 @@ class EqualityValidator < ActiveModel::EachValidator
       raise ArgumentError,
         "Unknown operator: #{operator.inspect}. Valid operators are: #{operators.map(&:inspect).join(', ')}"
     end
-    operator = OPERATORS.fetch(operator)
 
+    operator = OPERATORS[operator]
     unless value.send(operator, record.send(to))
       record.errors[attribute] <<
         (options[:message] || I18n.t('active_validation.errors.messages.equality', attr: to, operator: operator))

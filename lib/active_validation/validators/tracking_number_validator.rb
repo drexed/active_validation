@@ -27,7 +27,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
   }
 
   # DHL
-  DEFAULT_CARRIERS_AND_SERVICES.fetch(:dhl).each do |service, pattern|
+  DEFAULT_CARRIERS_AND_SERVICES[:dhl].each do |service, pattern|
     define_method("valid_dhl_#{service}_checksum?") do |value|
       formula = value.scan(pattern).flatten.compact
       return(false) if formula.empty?
@@ -41,7 +41,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
   def valid_fedex_express_checksum?(value)
     return(false) unless value.size == 12
 
-    pattern = DEFAULT_CARRIERS_AND_SERVICES.fetch(:fedex).fetch(:express)
+    pattern = DEFAULT_CARRIERS_AND_SERVICES[:fedex][:express]
     formula = value.scan(pattern).flatten.compact
     return(false) if formula.empty?
     sequence, check_digit = formula
@@ -54,7 +54,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     (total % 11 % 10) == check_digit.to_i
   end
 
-  DEFAULT_CARRIERS_AND_SERVICES.fetch(:fedex).select { |k, v| [:ground, :ground18, :ground96].include?(k) }.each_with_index do |(service, pattern), i|
+  DEFAULT_CARRIERS_AND_SERVICES[:fedex].select { |k, v| [:ground, :ground18, :ground96].include?(k) }.each_with_index do |(service, pattern), i|
     define_method("valid_fedex_#{service}_checksum?") do |value|
       return(false) unless value.size == [15, 18, 22].at(i)
 
@@ -79,7 +79,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     value = "92#{value}" unless value =~ /^92/
     return(false) unless value.size == 22
 
-    pattern = DEFAULT_CARRIERS_AND_SERVICES.fetch(:fedex).fetch(:smart_post)
+    pattern = DEFAULT_CARRIERS_AND_SERVICES[:fedex][:smart_post]
     formula = value.scan(pattern).flatten.compact
     return(false) if formula.empty?
     sequence, check_digit = formula
@@ -124,7 +124,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
   def valid_usps_usps13_checksum?(value)
     return(false) unless value.size == 13
 
-    pattern = DEFAULT_CARRIERS_AND_SERVICES.fetch(:usps).fetch(:usps13)
+    pattern = DEFAULT_CARRIERS_AND_SERVICES[:usps][:usps13]
     sequence = value.scan(pattern).flatten.compact
     return(false) if sequence.empty?
 
@@ -150,7 +150,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
   def valid_usps_usps20_checksum?(value)
     return(false) unless value.size == 20
 
-    pattern = DEFAULT_CARRIERS_AND_SERVICES.fetch(:usps).fetch(:usps20)
+    pattern = DEFAULT_CARRIERS_AND_SERVICES[:usps][:usps20]
     sequence = value.scan(pattern).flatten.compact
     return(false) if sequence.empty?
 
@@ -173,7 +173,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     value = "91#{value}" unless value =~ /^(420\d{5})?9[1-5]/
     return(false) unless value.size == 22
 
-    pattern = DEFAULT_CARRIERS_AND_SERVICES.fetch(:usps).fetch(:usps91)
+    pattern = DEFAULT_CARRIERS_AND_SERVICES[:usps][:usps91]
     sequence = value.scan(pattern).flatten.compact
     return(false) if sequence.empty?
 
@@ -207,7 +207,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
         break if result
       end
     elsif service.nil?
-      DEFAULT_CARRIERS_AND_SERVICES.fetch(carrier).each_key do |carrier_service|
+      DEFAULT_CARRIERS_AND_SERVICES[carrier].each_key do |carrier_service|
         result = send("valid_#{carrier}_#{carrier_service}_checksum?", value)
         break if result
       end

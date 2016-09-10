@@ -57,7 +57,7 @@ class CreditCardValidator < ActiveModel::EachValidator
       value_size_range = DEFAULT_LENGTHS.values.flatten.uniq.sort
       value_size.between?(value_size_range.first, value_size_range.last)
     else
-      DEFAULT_LENGTHS.fetch(current_card).include?(value_size)
+      DEFAULT_LENGTHS[current_card].include?(value_size)
     end
   end
 
@@ -71,12 +71,12 @@ class CreditCardValidator < ActiveModel::EachValidator
       result = false
       DEFAULT_LENGTHS.each do |key, values|
         if values.include?(value.size)
-          break if result = DEFAULT_PREFIXES.fetch(key).any? { |p| value.start_with?(p) }
+          break if result = DEFAULT_PREFIXES[key].any? { |p| value.start_with?(p) }
         end
       end
       result
     else
-      DEFAULT_PREFIXES.fetch(current_card).any? { |p| value.start_with?(p) }
+      DEFAULT_PREFIXES[current_card].any? { |p| value.start_with?(p) }
     end
   end
 
