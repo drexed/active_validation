@@ -10,11 +10,11 @@ class SedolValidator < ActiveModel::EachValidator
   private
 
   def valid_checksum?(value)
-    digits = value.chars.map { |d| d.match(/[A-Z]/) ? (d.ord - 55) : d.to_i }
+    digits = value.chars.map { |dgt| dgt.match(/[A-Z]/) ? (dgt.ord - 55) : dgt.to_i }
     weights = [1, 3, 1, 7, 3, 9, 1]
 
     total = 0
-    digits.each_with_index { |d, i| total += (weights[i] * d) }
+    digits.each_with_index { |dgt, idx| total += (weights[idx] * dgt) }
 
     (10 - total % 10) % 10
   end

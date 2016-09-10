@@ -66,17 +66,17 @@ class CreditCardValidator < ActiveModel::EachValidator
 
     case current_card
     when :amex
-      DEFAULT_PREFIXES[:american_express].any? { |p| value.start_with?(p) }
+      DEFAULT_PREFIXES[:american_express].any? { |pat| value.start_with?(pat) }
     when :all
       result = false
       DEFAULT_LENGTHS.each do |key, values|
         if values.include?(value.size)
-          break if result = DEFAULT_PREFIXES[key].any? { |p| value.start_with?(p) }
+          break if result = DEFAULT_PREFIXES[key].any? { |pat| value.start_with?(pat) }
         end
       end
       result
     else
-      DEFAULT_PREFIXES[current_card].any? { |p| value.start_with?(p) }
+      DEFAULT_PREFIXES[current_card].any? { |pat| value.start_with?(pat) }
     end
   end
 

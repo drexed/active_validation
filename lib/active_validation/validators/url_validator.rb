@@ -15,7 +15,7 @@ class UrlValidator < ActiveModel::EachValidator
 
   def valid_domain?(value, options)
     value_downcased = value.host.to_s.downcase
-    options.empty? || options.any? { |d| value_downcased.end_with?(".#{d.downcase}") }
+    options.empty? || options.any? { |dom| value_downcased.end_with?(".#{dom.downcase}") }
   end
 
   def valid_length?(value)
@@ -24,7 +24,7 @@ class UrlValidator < ActiveModel::EachValidator
 
   def valid_scheme?(value, options)
     value_downcased = value.scheme.to_s.downcase
-    options.empty? || options.any? { |s| value_downcased == s.to_s.downcase }
+    options.empty? || options.any? { |sch| value_downcased == sch.to_s.downcase }
   end
 
   def valid_root?(value)

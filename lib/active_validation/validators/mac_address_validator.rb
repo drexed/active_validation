@@ -17,7 +17,7 @@ class MacAddressValidator < ActiveModel::EachValidator
 
   def valid_format?(value)
     result = false
-    DEFAULT_FORMATS.each { |p| break if result = (value =~ p) }
+    DEFAULT_FORMATS.each { |pat| break if result = (value =~ pat) }
     result
   end
 

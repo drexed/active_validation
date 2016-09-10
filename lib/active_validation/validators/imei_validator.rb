@@ -21,9 +21,9 @@ class ImeiValidator < ActiveModel::EachValidator
     number = value.gsub(/\D/, '').reverse
 
     total = 0
-    number.chars.each_with_index do |c, i|
-      result = c.to_i
-      result *= 2 if i.odd?
+    number.chars.each_with_index do |chr, idx|
+      result = chr.to_i
+      result *= 2 if idx.odd?
       result = (1 + (result - 10)) if (result >= 10)
       total += result
     end

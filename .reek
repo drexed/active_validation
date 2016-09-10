@@ -5,6 +5,8 @@ BooleanParameter:
   enabled: false
 ControlParameter:
   enabled: false
+DataClump:
+  enabled: false
 DuplicateMethodCall:
   enabled: false
 FeatureEnvy:
@@ -29,5 +31,6 @@ TooManyInstanceVariables:
   enabled: false
 TooManyStatements:
   max_statements: 10
+  enabled: false
 UtilityFunction:
   enabled: false

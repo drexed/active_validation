@@ -47,31 +47,33 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     sequence, check_digit = formula
 
     total = 0
-    sequence.chars.zip([3, 1, 7, 3, 1, 7, 3, 1, 7, 3, 1]).each do |char1, char2|
-      total += (char1.to_i * char2)
+    sequence.chars.zip([3, 1, 7, 3, 1, 7, 3, 1, 7, 3, 1]).each do |chr, chrx|
+      total += (chr.to_i * chrx)
     end
 
     (total % 11 % 10) == check_digit.to_i
   end
 
-  DEFAULT_CARRIERS_AND_SERVICES[:fedex].select { |k, v| [:ground, :ground18, :ground96].include?(k) }.each_with_index do |(service, pattern), i|
-    define_method("valid_fedex_#{service}_checksum?") do |value|
-      return(false) unless value.size == [15, 18, 22].at(i)
+  DEFAULT_CARRIERS_AND_SERVICES[:fedex]
+    .select { |key, _| [:ground, :ground18, :ground96].include?(key) }
+    .each_with_index do |(srv, pat), idx|
+      define_method("valid_fedex_#{srv}_checksum?") do |val|
+        return(false) unless val.size == [15, 18, 22].at(idx)
 
-      formula = value.scan(pattern).flatten.compact
-      return(false) if formula.empty?
-      sequence, check_digit = formula
+        formula = val.scan(pat).flatten.compact
+        return(false) if formula.empty?
+        sequence, check_digit = formula
 
-      total = 0
-      sequence.chars.reverse.each_with_index do |character, i|
-        result = character.to_i
-        result *= 3 if i.even?
-        total += result
-      end
+        total = 0
+        sequence.chars.reverse.each_with_index do |chr, idxx|
+          result = chr.to_i
+          result *= 3 if idxx.even?
+          total += result
+        end
 
-      check = total % 10
-      check = (10 - check) unless check.zero?
-      check == check_digit.to_i
+        check = total % 10
+        check = (10 - check) unless check.zero?
+        check == check_digit.to_i
     end
   end
 
@@ -85,9 +87,9 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     sequence, check_digit = formula
 
     total = 0
-    sequence.chars.reverse.each_with_index do |character, i|
+    sequence.chars.reverse.each_with_index do |character, idx|
       result = character.to_i
-      result *= 3 if i.even?
+      result *= 3 if idx.even?
       total += result
     end
 
@@ -97,28 +99,30 @@ class TrackingNumberValidator < ActiveModel::EachValidator
   end
 
   # Ontrac & UPS
-  DEFAULT_CARRIERS_AND_SERVICES.select { |k, v| [:ontrac, :ups].include?(k) }.each_with_index do |(carrier, services), i|
-    services.each do |service, pattern|
-      define_method("valid_#{carrier}_#{service}_checksum?") do |value|
-        return(false) unless value.size == [15, 18].at(i)
+  DEFAULT_CARRIERS_AND_SERVICES
+    .select { |key, _| [:ontrac, :ups].include?(key) }
+    .each_with_index do |(cars, sers), idx|
+      sers.each do |ser, pat|
+        define_method("valid_#{cars}_#{ser}_checksum?") do |value|
+          return(false) unless value.size == [15, 18].at(idx)
 
-        formula = value.scan(pattern).flatten.compact
-        return(false) if formula.empty?
-        sequence, check_digit = formula
+          formula = value.scan(pat).flatten.compact
+          return(false) if formula.empty?
+          sequence, check_digit = formula
 
-        total = 0
-        sequence.chars.each_with_index do |character, i|
-          result = character[/[0-9]/] ? character.to_i : ((character[0].ord - 3) % 10)
-          result *= 2 if i.odd?
-          total += result
+          total = 0
+          sequence.chars.each_with_index do |chr, idxx|
+            result = chr[/[0-9]/] ? chr.to_i : ((chr[0].ord - 3) % 10)
+            result *= 2 if idxx.odd?
+            total += result
+          end
+
+          check = total % 10
+          check = 10 - check unless check.zero?
+          check == check_digit.to_i
         end
-
-        check = total % 10
-        check = 10 - check unless check.zero?
-        check == check_digit.to_i
       end
     end
-  end
 
   # USPS
   def valid_usps_usps13_checksum?(value)
@@ -132,8 +136,8 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     check_digit = characters.pop.to_i
 
     total = 0
-    characters.zip([8, 6, 4, 2, 3, 5, 9, 7]).each do |pair|
-      total += (pair[0].to_i * pair[1].to_i)
+    characters.zip([8, 6, 4, 2, 3, 5, 9, 7]).each do |par|
+      total += (par[0].to_i * par[1].to_i)
     end
 
     remainder = total % 11
@@ -158,9 +162,9 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     check_digit = sequence.last.to_i
 
     total = 0
-    characters.reverse.each_with_index do |character, i|
-      result = character.to_i
-      result *= 3 if i.even?
+    characters.reverse.each_with_index do |chr, idx|
+      result = chr.to_i
+      result *= 3 if idx.even?
       total += result
     end
 
@@ -181,9 +185,9 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     check_digit = sequence.last.to_i
 
     total = 0
-    characters.reverse.each_with_index do |character, i|
-      result = character.to_i
-      result *= 3 if i.even?
+    characters.reverse.each_with_index do |chr, idx|
+      result = chr.to_i
+      result *= 3 if idx.even?
       total += result
     end
 
@@ -199,16 +203,16 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     result = false
 
     if carrier.nil? && service.nil?
-      DEFAULT_CARRIERS_AND_SERVICES.each do |carrier, services|
-        services.each_key do |carrier_service|
-          result = send("valid_#{carrier}_#{carrier_service}_checksum?", value)
+      DEFAULT_CARRIERS_AND_SERVICES.each do |car, ser|
+        ser.each_key do |car_ser|
+          result = send("valid_#{car}_#{car_ser}_checksum?", value)
           break if result
         end
         break if result
       end
     elsif service.nil?
-      DEFAULT_CARRIERS_AND_SERVICES[carrier].each_key do |carrier_service|
-        result = send("valid_#{carrier}_#{carrier_service}_checksum?", value)
+      DEFAULT_CARRIERS_AND_SERVICES[carrier].each_key do |car_ser|
+        result = send("valid_#{carrier}_#{car_ser}_checksum?", value)
         break if result
       end
     else

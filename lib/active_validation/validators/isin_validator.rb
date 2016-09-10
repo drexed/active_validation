@@ -11,17 +11,17 @@ class IsinValidator < ActiveModel::EachValidator
 
   def valid_checksum?(value)
     characters = value.chars
-    digits = characters.map { |c| c.match(/[A-Z]/) ? (c.ord - 55) : c.to_i }
-    even_values = digits.values_at(*digits.each_index.select { |i| i.even? })
-    odd_values = digits.values_at(*digits.each_index.select { |i| i.odd? })
+    digits = characters.map { |chr| chr.match(/[A-Z]/) ? (chr.ord - 55) : chr.to_i }
+    even_values = digits.values_at(*digits.each_index.select { |idx| idx.even? })
+    odd_values = digits.values_at(*digits.each_index.select { |idx| idx.odd? })
 
     longest, shortest = if even_values.last == characters.map(&:to_i)
-      [even_values, odd_values]
-    else
-      [odd_values, even_values]
-    end
+                          [even_values, odd_values]
+                        else
+                          [odd_values, even_values]
+                        end
 
-    longest = longest.map { |i| i * 2 }
+    longest = longest.map { |int| int * 2 }
     values = longest.concat(shortest).to_s.scan(/./).map(&:to_i)
     total = values.inject(&:+)
 

@@ -10,7 +10,7 @@ class EmailValidator < ActiveModel::EachValidator
   private
 
   def valid_domain?(value, options)
-    options.empty? || options.any? { |d| value.downcase.end_with?(".#{d.downcase}") }
+    options.empty? || options.any? { |dom| value.downcase.end_with?(".#{dom.downcase}") }
   end
 
   def valid_format?(value)

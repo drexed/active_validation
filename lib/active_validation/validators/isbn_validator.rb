@@ -15,7 +15,7 @@ class IsbnValidator < ActiveModel::EachValidator
     return(false) if value.empty?
     value = value.gsub(/-| /, '').downcase.chars
 
-    [10, 13].include?(value.size) && value.all? { |c| CHARS_VALUES.include?(c) }
+    [10, 13].include?(value.size) && value.all? { |chr| CHARS_VALUES.include?(chr) }
   end
 
   def valid_length?(value)
