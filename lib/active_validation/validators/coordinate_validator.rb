@@ -19,7 +19,7 @@ class CoordinateValidator < ActiveModel::EachValidator
   private
 
   def valid_latitude?(value)
-    value >= -90 && value <= 90
+    value >= -90.0 && value <= 90.0
   end
 
   def valid_length?(value)
@@ -27,7 +27,7 @@ class CoordinateValidator < ActiveModel::EachValidator
   end
 
   def valid_longitude?(value)
-    value >= -180 && value <= 180
+    value >= -180.0 && value <= 180.0
   end
 
   def valid_boundary?(value, options)
@@ -37,12 +37,14 @@ class CoordinateValidator < ActiveModel::EachValidator
     when :longitude
       valid_longitude?(value)
     else
-      valid_latitude?(value.first) && valid_longitude?(value.last)
+      valid_latitude?(value.first) &&
+        valid_longitude?(value.last)
     end
   end
 
   def valid?(value, options)
-    valid_length?(value) && valid_boundary?(value, options)
+    valid_length?(value) &&
+      valid_boundary?(value, options)
   end
 
 end

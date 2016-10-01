@@ -31,7 +31,9 @@ class ImeiValidator < ActiveModel::EachValidator
   end
 
   def valid?(value)
-    valid_length?(value) && valid_format?(value) && valid_luhn?(value)
+    valid_length?(value) &&
+      valid_format?(value) &&
+      valid_luhn?(value)
   end
 
 end

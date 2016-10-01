@@ -29,7 +29,9 @@ class CusipValidator < ActiveModel::EachValidator
   end
 
   def valid?(value)
-    valid_length?(value) && valid_format?(value) && valid_checksum?(value)
+    valid_length?(value) &&
+      valid_format?(value) &&
+      valid_checksum?(value)
   end
 
 end

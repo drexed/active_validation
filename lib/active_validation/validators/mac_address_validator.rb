@@ -1,9 +1,12 @@
 class MacAddressValidator < ActiveModel::EachValidator
 
   DEFAULT_FORMATS ||= [
-    /^([\h]{2}:){5}[\h]{2}?$/i, /^([\h]{2}[-|\.|\s]){5}[\h]{2}?$/i,
-    /^([\h]{6})[-|\.][\h]{6}?$/i, /^([\h]{6}):[\h]{6}?$/i,
-    /^([\h]{4}[-|\.|\s]){2}[\h]{4}?$/i, /^[\h]{12}?$/i
+    /^([\h]{2}:){5}[\h]{2}?$/i,
+    /^([\h]{2}[-|\.|\s]){5}[\h]{2}?$/i,
+    /^([\h]{6})[-|\.][\h]{6}?$/i,
+    /^([\h]{6}):[\h]{6}?$/i,
+    /^([\h]{4}[-|\.|\s]){2}[\h]{4}?$/i,
+    /^[\h]{12}?$/i
   ].freeze
 
   def validate_each(record, attribute, value)
@@ -28,7 +31,8 @@ class MacAddressValidator < ActiveModel::EachValidator
   end
 
   def valid?(value)
-    valid_length?(value) && valid_format?(value)
+    valid_length?(value) &&
+      valid_format?(value)
   end
 
 end

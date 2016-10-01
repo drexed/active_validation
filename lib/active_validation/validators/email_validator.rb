@@ -23,7 +23,9 @@ class EmailValidator < ActiveModel::EachValidator
   def valid?(value, options)
     options = [*(options[:domain])]
 
-    valid_length?(value) && valid_format?(value) && valid_domain?(value, options)
+    valid_length?(value) &&
+      valid_format?(value) &&
+      valid_domain?(value, options)
   end
 
 end

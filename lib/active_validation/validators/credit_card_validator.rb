@@ -1,21 +1,20 @@
 class CreditCardValidator < ActiveModel::EachValidator
 
-  def validate_each(record, attribute, value)
-    return if valid?(value.to_s, options)
-    record.errors[attribute] <<
-      (options[:message] || I18n.t('active_validation.errors.messages.credit_card'))
-  end
-
-  private
-
-  DEFAULT_LENGTHS ||= {
-    american_express: [15], diners_club: [14, 16], discover: [16], jcb: [16],
-    laser: [16, 17, 18, 19], maestro: [12, 13, 14, 15, 16, 17, 18, 19],
-    mastercard: [16], solo: [16, 18, 19], unionpay: [16, 17, 18, 19], visa: [16]
+  LENGTHS ||= {
+    american_express: [15],
+    diners_club: [14, 16],
+    discover: [16],
+    jcb: [16],
+    laser: [16, 17, 18, 19],
+    maestro: [12, 13, 14, 15, 16, 17, 18, 19],
+    mastercard: [16],
+    solo: [16, 18, 19],
+    unionpay: [16, 17, 18, 19],
+    visa: [16]
   }.freeze
 
   # rubocop:disable Style/IndentArray
-  DEFAULT_PREFIXES ||= {
+  PREFIXES ||= {
     american_express: %w(34 37),
     diners_club: %w(300 301 302 303 304 305 36 54 55),
     discover: %w(
@@ -36,6 +35,14 @@ class CreditCardValidator < ActiveModel::EachValidator
   }.freeze
   # rubocop:enable Style/IndentArray
 
+  def validate_each(record, attribute, value)
+    return if valid?(value.to_s, options)
+    record.errors[attribute] <<
+      (options[:message] || I18n.t('active_validation.errors.messages.credit_card'))
+  end
+
+  private
+
   def valid_format?(value, options)
     value =~ (options[:strict] ? /^[0-9]+$/ : /^[0-9 -.]+$/)
   end
@@ -43,37 +50,37 @@ class CreditCardValidator < ActiveModel::EachValidator
   def valid_length?(value, options)
     return(false) unless value.present?
 
-    current_card = options[:card] || :all
+    card = options[:card] || :all
     value_size = value.size
 
-    case current_card
+    case card
     when :amex
-      DEFAULT_LENGTHS[:american_express].include?(value_size)
+      LENGTHS[:american_express].include?(value_size)
     when :all
-      value_size_range = DEFAULT_LENGTHS.values.flatten.uniq.sort
+      value_size_range = LENGTHS.values.flatten.uniq.sort
       value_size.between?(value_size_range.first, value_size_range.last)
     else
-      DEFAULT_LENGTHS[current_card].include?(value_size)
+      LENGTHS[card].include?(value_size)
     end
   end
 
   def valid_prefix?(value, options)
-    current_card = options[:card] || :all
+    card = options[:card] || :all
 
-    case current_card
+    case card
     when :amex
-      DEFAULT_PREFIXES[:american_express].any? { |pat| value.start_with?(pat) }
+      PREFIXES[:american_express].any? { |pat| value.start_with?(pat) }
     when :all
       result = false
-      DEFAULT_LENGTHS.each do |key, values|
+      LENGTHS.each do |key, values|
         if values.include?(value.size)
-          result = DEFAULT_PREFIXES[key].any? { |pat| value.start_with?(pat) }
+          result = PREFIXES[key].any? { |pat| value.start_with?(pat) }
           break if result
         end
       end
       result
     else
-      DEFAULT_PREFIXES[current_card].any? { |pat| value.start_with?(pat) }
+      PREFIXES[card].any? { |pat| value.start_with?(pat) }
     end
   end
 

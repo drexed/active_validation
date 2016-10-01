@@ -1,6 +1,8 @@
 require 'uri'
 class UrlValidator < ActiveModel::EachValidator
 
+  DEFAULT_SCHEMES ||= [:http, :https].freeze
+
   def validate_each(record, attribute, value)
     uri = URI.parse(value.to_s)
     raise URI::InvalidURIError unless valid?(uri, options)
@@ -10,8 +12,6 @@ class UrlValidator < ActiveModel::EachValidator
   end
 
   private
-
-  DEFAULT_SCHEMES ||= [:http, :https].freeze
 
   def valid_domain?(value, options)
     value_downcased = value.host.to_s.downcase

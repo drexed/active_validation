@@ -26,7 +26,8 @@ class UuidValidator < ActiveModel::EachValidator
   end
 
   def valid?(value, options)
-    valid_length?(value) && valid_format?(value, options)
+    valid_length?(value) &&
+      valid_format?(value, options)
   end
 
 end

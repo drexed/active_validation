@@ -17,7 +17,8 @@ class HexValidator < ActiveModel::EachValidator
   end
 
   def valid?(value)
-    valid_length?(value) && valid_format?(value)
+    valid_length?(value) &&
+      valid_format?(value)
   end
 
 end
