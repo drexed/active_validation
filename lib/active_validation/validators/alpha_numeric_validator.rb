@@ -1,10 +1,9 @@
 class AlphaNumericValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
-    unless valid?(value.to_s, options)
-      record.errors[attribute] <<
-        (options[:message] || I18n.t('active_validation.errors.messages.alpha_numeric'))
-    end
+    return if valid?(value.to_s, options)
+    record.errors[attribute] <<
+      (options[:message] || I18n.t('active_validation.errors.messages.alpha_numeric'))
   end
 
   private

@@ -1,15 +1,14 @@
 class TrackingNumberValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
-    unless valid?(value.to_s, options)
-      record.errors[attribute] <<
-        (options[:message] || I18n.t('active_validation.errors.messages.tracking_number'))
-    end
+    return if valid?(value.to_s, options)
+    record.errors[attribute] <<
+      (options[:message] || I18n.t('active_validation.errors.messages.tracking_number'))
   end
 
   private
 
-  DEFAULT_CARRIERS_AND_SERVICES = {
+  DEFAULT_CARRIERS_AND_SERVICES ||= {
     dhl: { express: /^([0-9]{9,9})([0-9])$/, express_air: /^([0-9]{10,10})([0-9])$/ },
     fedex: {
       express: /^([0-9]{11,11})([0-9])$/, ground: /^([0-9]{14,14})([0-9])$/,

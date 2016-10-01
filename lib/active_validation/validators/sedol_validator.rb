@@ -1,10 +1,9 @@
 class SedolValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
-    unless valid?(value.to_s)
-      record.errors[attribute] <<
-        (options[:message] || I18n.t('active_validation.errors.messages.sedol'))
-    end
+    return if valid?(value.to_s)
+    record.errors[attribute] <<
+      (options[:message] || I18n.t('active_validation.errors.messages.sedol'))
   end
 
   private

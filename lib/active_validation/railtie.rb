@@ -9,11 +9,11 @@ if defined?(Rails)
       end
     end
 
-    protected
-
-    def path(locale)
+    def self.path(locale)
       File.expand_path("../../config/locales/#{locale}.yml", __FILE__)
     end
+
+    private_class_method :path
 
   end
 end

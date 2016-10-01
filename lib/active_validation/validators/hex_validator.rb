@@ -1,10 +1,9 @@
 class HexValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
-    unless valid?(value.to_s)
-      record.errors[attribute] <<
-        (options[:message] || I18n.t('active_validation.errors.messages.hex'))
-    end
+    return if valid?(value.to_s)
+    record.errors[attribute] <<
+      (options[:message] || I18n.t('active_validation.errors.messages.hex'))
   end
 
   private

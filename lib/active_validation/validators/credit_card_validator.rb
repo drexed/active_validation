@@ -1,22 +1,21 @@
 class CreditCardValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
-    unless valid?(value.to_s, options)
-      record.errors[attribute] <<
-        (options[:message] || I18n.t('active_validation.errors.messages.credit_card'))
-    end
+    return if valid?(value.to_s, options)
+    record.errors[attribute] <<
+      (options[:message] || I18n.t('active_validation.errors.messages.credit_card'))
   end
 
   private
 
-  DEFAULT_LENGTHS = {
+  DEFAULT_LENGTHS ||= {
     american_express: [15], diners_club: [14, 16], discover: [16], jcb: [16],
     laser: [16, 17, 18, 19], maestro: [12, 13, 14, 15, 16, 17, 18, 19],
     mastercard: [16], solo: [16, 18, 19], unionpay: [16, 17, 18, 19], visa: [16]
   }.freeze
 
   # rubocop:disable Style/IndentArray
-  DEFAULT_PREFIXES = {
+  DEFAULT_PREFIXES ||= {
     american_express: %w(34 37),
     diners_club: %w(300 301 302 303 304 305 36 54 55),
     discover: %w(

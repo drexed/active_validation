@@ -1,6 +1,6 @@
 class EqualityValidator < ActiveModel::EachValidator
 
-  OPERATORS = {
+  OPERATORS ||= {
     less_than: :<, less_than_or_equal_to: :<=, greater_than: :>, greater_than_or_equal_to: :>=,
     equal_to: :==, not_equal_to: :!=
   }.freeze
@@ -21,10 +21,9 @@ class EqualityValidator < ActiveModel::EachValidator
     end
 
     operator = OPERATORS[operator]
-    unless value.send(operator, record.send(to))
-      record.errors[attribute] <<
-        (options[:message] || I18n.t('active_validation.errors.messages.equality', attr: to, operator: operator))
-    end
+    return if value.send(operator, record.send(to))
+    record.errors[attribute] <<
+      (options[:message] || I18n.t('active_validation.errors.messages.equality', attr: to, operator: operator))
   end
   # rubocop:enable Metrics/LineLength
 

@@ -5,10 +5,9 @@ end
 class TypeValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
-    unless valid?(value, options)
-      record.errors[attribute] <<
-        (options[:message] || I18n.t('active_validation.errors.messages.type'))
-    end
+    return if valid?(value, options)
+    record.errors[attribute] <<
+      (options[:message] || I18n.t('active_validation.errors.messages.type'))
   end
 
   private
