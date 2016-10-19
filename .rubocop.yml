@@ -25,7 +25,7 @@ Style/Alias:
 Style/BracesAroundHashParameters:
   Enabled: false
 Style/ClassAndModuleChildren:
-  EnforcedStyle: compact
+  Enabled: false
 Style/ClassVars:
   Enabled: false
 Style/ClosingParenthesisIndentation:
