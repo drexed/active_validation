@@ -50,6 +50,7 @@ Or install it yourself as:
 * [SEDOL](#sedolvalidator)
 * [Slug](#slugvalidator)
 * [SSN](#ssnvalidator)
+* [Time Zone](#timezonevalidator)
 * [Tracking Number](#trackingnumbervalidator)
 * [Type](#typevalidator)
 * [URL](#urlvalidator)
@@ -915,6 +916,40 @@ RSpec matcher is also available for your convenience:
 describe User do
   it { should ensure_valid_ssn_format_of(:ssn) }
   it { should_not ensure_valid_ssn_format_of(:name) }
+end
+```
+
+## TimeZoneValidator
+
+**Ex:** 'America/New_York' or 'London'
+
+**Rules:**
+* Any valid time zone
+
+With an ActiveRecord model:
+
+```ruby
+class User < ActiveRecord::Base
+  attr_accessor :time_zone, :name
+  validates :time_zone, time_zone: true
+```
+
+Or any ruby class:
+
+```ruby
+class User
+  include ActiveModel::Validations
+  attr_accessor :time_zone, :name
+  validates :time_zone, time_zone: true
+end
+```
+
+RSpec matcher is also available for your convenience:
+
+```ruby
+describe User do
+  it { should ensure_valid_type_format_of(:time_zone) }
+  it { should_not ensure_valid_type_format_of(:name) }
 end
 ```
 

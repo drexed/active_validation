@@ -27,6 +27,7 @@ en:
         sedol: 'is not in valid SEDOL format'
         slug: 'is not in valid slug format'
         ssn: 'is not in valid social security number format'
+        time_zone: 'is not a valid time zone'
         tracking_number: 'is not in valid tracking number format'
         type: 'is not a valid type'
         url: 'is not in valid URL format'
@@ -99,6 +100,9 @@ en:
         ensure_valid_ssn_format_of:
           failure_message_for_should: '%{model} should ensure valid SSN format of attribute %{attr}'
           failure_message_for_should_not: '%{model} should not ensure valid SSN format of attribute %{attr}'
+        ensure_valid_time_zone_format_of:
+          failure_message_for_should: '%{model} should ensure valid time zone of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid time zone of attribute %{attr}'
         ensure_valid_tracking_number_format_of:
           failure_message_for_should: '%{model} should ensure valid tracking number format of attribute %{attr}'
           failure_message_for_should_not: '%{model} should not ensure valid tracking number format of attribute %{attr}'
