@@ -14,11 +14,15 @@ describe SlugValidator do
     subject { klass.new }
 
     it { should allow_value('slug').for(:slug) }
+    it { should allow_value('Slug').for(:slug) }
     it { should allow_value('slug1234').for(:slug) }
     it { should allow_value('slug-word').for(:slug) }
     it { should allow_value('slug-1234').for(:slug) }
+    it { should allow_value('Slug-1234').for(:slug) }
     it { should allow_value('slug_word').for(:slug) }
+    it { should allow_value('Slug_word').for(:slug) }
     it { should allow_value('slug_1234').for(:slug) }
+    it { should allow_value('Slug_1234').for(:slug) }
 
     it { should_not allow_value('').for(:slug) }
     it { should_not allow_value(' ').for(:slug) }

@@ -9,7 +9,7 @@ class SlugValidator < ActiveModel::EachValidator
   private
 
   def valid_format?(value)
-    value =~ /^[a-z0-9_-]+$/
+    value =~ /^[A-Za-z0-9_-]+$/
   end
 
   def valid_length?(value)

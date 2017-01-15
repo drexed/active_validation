@@ -854,7 +854,7 @@ end
 **Ex:** slug1234 or slug-1234
 
 **Rules:**
-* Characters: a-z 0-9 -
+* Characters: A-Z a-z 0-9 -_
 
 With an ActiveRecord model:
 
