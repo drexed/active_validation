@@ -81,7 +81,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     end
 
   def valid_fedex_smart_post_checksum?(value)
-    value = "92#{value}" unless value =~ /^92/
+    value = "92#{value}" unless /^92/.match?(value)
     return(false) unless value.size == 22
 
     pattern = CARRIERS_AND_SERVICES[:fedex][:smart_post]
@@ -177,7 +177,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
   end
 
   def valid_usps_usps91_checksum?(value)
-    value = "91#{value}" unless value =~ /^(420\d{5})?9[1-5]/
+    value = "91#{value}" unless /^(420\d{5})?9[1-5]/.match?(value)
     return(false) unless value.size == 22
 
     pattern = CARRIERS_AND_SERVICES[:usps][:usps91]

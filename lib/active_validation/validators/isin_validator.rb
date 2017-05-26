@@ -10,7 +10,7 @@ class IsinValidator < ActiveModel::EachValidator
 
   def valid_checksum?(value)
     characters = value.chars
-    digits = characters.map { |chr| chr =~ /[A-Z]/ ? (chr.ord - 55) : chr.to_i }
+    digits = characters.map { |chr| /[A-Z]/.match?(chr) ? (chr.ord - 55) : chr.to_i }
     even_values = digits.values_at(*digits.each_index.select(&:even?))
     odd_values = digits.values_at(*digits.each_index.select(&:odd?))
 
