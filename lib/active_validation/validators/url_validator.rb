@@ -1,7 +1,7 @@
 require 'uri'
 class UrlValidator < ActiveModel::EachValidator
 
-  DEFAULT_SCHEMES ||= [:http, :https].freeze
+  DEFAULT_SCHEMES ||= %i[http https].freeze
 
   def validate_each(record, attribute, value)
     uri = URI.parse(value.to_s)

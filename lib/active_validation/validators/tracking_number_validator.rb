@@ -58,7 +58,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
   end
 
   CARRIERS_AND_SERVICES[:fedex]
-    .select { |key, _| [:ground, :ground18, :ground96].include?(key) }
+    .select { |key, _| %i[ground ground18 ground96].include?(key) }
     .each_with_index do |(srv, pat), idx|
       define_method("valid_fedex_#{srv}_checksum?") do |val|
         return(false) unless val.size == [15, 18, 22].at(idx)
@@ -103,7 +103,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
 
   # Ontrac & UPS
   CARRIERS_AND_SERVICES
-    .select { |key, _| [:ontrac, :ups].include?(key) }
+    .select { |key, _| %i[ontrac ups].include?(key) }
     .each_with_index do |(cars, sers), idx|
       sers.each do |ser, pat|
         define_method("valid_#{cars}_#{ser}_checksum?") do |val|

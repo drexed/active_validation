@@ -1,6 +1,6 @@
 class IsbnValidator < ActiveModel::EachValidator
 
-  CHARACTERS ||= %w(0 1 2 3 4 5 6 7 8 9 0 x).freeze
+  CHARACTERS ||= %w[0 1 2 3 4 5 6 7 8 9 0 x].freeze
 
   def validate_each(record, attribute, value)
     return if valid?(value.to_s)

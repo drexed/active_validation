@@ -1,6 +1,6 @@
 class CoordinateValidator < ActiveModel::EachValidator
 
-  BOUNDARIES ||= [:coordinate, :latitude, :longitude].freeze
+  BOUNDARIES ||= %i[coordinate latitude longitude].freeze
 
   # rubocop:disable Metrics/LineLength
   def validate_each(record, attribute, value)
