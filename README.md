@@ -312,12 +312,14 @@ end
 
 ## CsvValidator
 
+Options: :columns, :max_columns, :min_columns, :rows, :max_rows, :min_rows
+
 With an ActiveRecord model:
 
 ```ruby
 class Product < ActiveRecord::Base
   attr_accessor :csv, :name
-  validates :csv, csv: true
+  validates :csv, csv: { columns: 6, min_rows: 20 }
 end
 ```
 
@@ -327,14 +329,8 @@ Or any ruby class:
 class Product
   include ActiveModel::Validations
   attr_accessor :csv, :name
-  validates :csv, csv: true
+  validates :csv, csv: { min_columns: 6, rows: 20 }
 end
-```
-
-Options: :columns, :max_columns, :min_columns, :rows, :max_rows, :min_rows
-
-```ruby
-validates :csv, csv: { columns: 6, min_rows: 20 }
 ```
 
 RSpec matcher is also available for your convenience:

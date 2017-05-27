@@ -5,6 +5,11 @@ module FileHelper
     ActionDispatch::Http::UploadedFile.new(opts)
   end
 
+  def img_upload(file_name)
+    opts = { tempfile: tempfile(:img, file_name), filename: file_name }
+    ActionDispatch::Http::UploadedFile.new(opts)
+  end
+
   def txt_upload(file_name)
     opts = { tempfile: tempfile(:txt, file_name), filename: file_name }
     ActionDispatch::Http::UploadedFile.new(opts)

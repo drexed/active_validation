@@ -4,25 +4,6 @@ require 'support/helpers/file_helper'
 describe CsvValidator do
   include FileHelper
 
-  context 'has a valid value' do
-    let(:klass) do
-      Class.new do
-        include ActiveModel::Validations
-        attr_accessor :csv, :name
-        validates :csv, csv: true
-      end
-    end
-
-    subject { klass.new }
-
-    it { should allow_value(csv_upload('6x4.csv')).for(:csv) }
-
-    it { should_not allow_value(txt_upload('csv.txt')).for(:csv) }
-
-    it { should ensure_valid_csv_format_of(:csv) }
-    it { should_not ensure_valid_csv_format_of(:name) }
-  end
-
   context 'with :columns option has a valid value' do
     let(:klass) do
       Class.new do
