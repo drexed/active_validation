@@ -39,6 +39,7 @@ Or install it yourself as:
 * [CUSIP](#cusipvalidator)
 * [Email](#emailvalidator)
 * [Equality](#equalityvalidator)
+* [FileSize](#filesizevalidator)
 * [Hex](#hexvalidator)
 * [IMEI](#imeivalidator)
 * [IP](#ipvalidator)
@@ -427,10 +428,10 @@ end
 **Ex:** user@example.com or user+123@example-site.com
 
 **Rules:**
- * Characters in username: a-z 0-9 -_+.
+ * Characters in username: a-z 0-9 -.+_
  * Must include: @
  * Characters in domain: a-z 0-9 -
- * Must include extension: .co, .org, .museum
+ * Must include extension: .com, .org, .museum
 
 With an ActiveRecord model:
 
@@ -507,6 +508,38 @@ RSpec matcher is also available for your convenience:
 describe Auction do
   it { should ensure_equality_of(:bid).to(:price) }
   it { should_not ensure_equality_of(:bid).to(:product) }
+end
+```
+
+## FileSizeValidator
+
+Options: :in, :less_than, :less_than_or_equal_to, :greater_than, :greater_than_or_equal_to
+
+With an ActiveRecord model:
+
+```ruby
+class Product < ActiveRecord::Base
+  attr_accessor :file, :name
+  validates :file, file_size: { in: 5.megabytes..10.megabytes }
+end
+```
+
+Or any ruby class:
+
+```ruby
+class Product
+  include ActiveModel::Validations
+  attr_accessor :file, :name
+  validates :file, file_size: { in: 5.megabytes..10.megabytes }
+end
+```
+
+RSpec matcher is also available for your convenience:
+
+```ruby
+describe Product do
+  it { should ensure_valid_csv_format_of(:file) }
+  it { should_not ensure_valid_csv_format_of(:name) }
 end
 ```
 
