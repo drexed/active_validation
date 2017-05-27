@@ -1,4 +1,5 @@
 class BooleanValidator < ActiveModel::EachValidator
+
   FALSE_VALUES ||= [false, 0, '0', 'f', 'F', 'false', 'FALSE'].freeze
   TRUE_VALUES  ||= [true, 1, '1', 't', 'T', 'true', 'TRUE'].freeze
 

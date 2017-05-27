@@ -1,6 +1,10 @@
 class FileSizeValidator < ActiveModel::EachValidator
+
   CHECKS ||= {
-    in: :===, less_than: :<, less_than_or_equal_to: :<=, greater_than: :>,
+    in: :===,
+    less_than: :<,
+    less_than_or_equal_to: :<=,
+    greater_than: :>,
     greater_than_or_equal_to: :>=
   }.freeze
 

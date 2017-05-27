@@ -3,6 +3,7 @@ require 'active_model'
 require 'active_support'
 require 'active_support/core_ext/time/zones'
 require 'active_validation/version'
+require 'csv'
 
 ACTIVE_VALIDATION_VALIDATORS ||= %w[
   alpha alpha_numeric base64 boolean coordinate credit_card csv currency cusip email equality

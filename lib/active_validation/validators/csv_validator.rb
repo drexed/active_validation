@@ -1,5 +1,3 @@
-require 'csv'
-
 class CsvValidator < ActiveModel::EachValidator
 
   CHECKS ||= %i[columns max_columns min_columns rows max_rows min_rows].freeze
