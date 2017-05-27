@@ -1,18 +1,8 @@
 require 'spec_helper'
-
-module CsvHelpers
-
-  def upload_csv(file_name)
-    csv_path = File.join(File.expand_path('../spec/support/csv', file_name), file_name)
-    csv_file = File.open(csv_path)
-
-    ActionDispatch::Http::UploadedFile.new(tempfile: csv_file, filename: File.basename(csv_file))
-  end
-
-end
+require 'support/helpers/file_helper'
 
 describe CsvValidator do
-  include CsvHelpers
+  include FileHelper
 
   context 'has a valid value' do
     let(:klass) do
@@ -25,9 +15,9 @@ describe CsvValidator do
 
     subject { klass.new }
 
-    it { should allow_value(upload_csv('6x4.csv')).for(:csv) }
+    it { should allow_value(csv_upload('6x4.csv')).for(:csv) }
 
-    it { should_not allow_value(upload_csv('6x4.txt')).for(:csv) }
+    it { should_not allow_value(txt_upload('csv.txt')).for(:csv) }
 
     it { should ensure_valid_csv_format_of(:csv) }
     it { should_not ensure_valid_csv_format_of(:name) }
@@ -44,9 +34,9 @@ describe CsvValidator do
 
     subject { klass.new }
 
-    it { should allow_value(upload_csv('6x4.csv')).for(:csv) }
+    it { should allow_value(csv_upload('6x4.csv')).for(:csv) }
 
-    it { should_not allow_value(upload_csv('5x3.csv')).for(:csv) }
+    it { should_not allow_value(csv_upload('5x3.csv')).for(:csv) }
 
     it { should ensure_valid_csv_format_of(:csv) }
     it { should_not ensure_valid_csv_format_of(:name) }
@@ -63,9 +53,9 @@ describe CsvValidator do
 
     subject { klass.new }
 
-    it { should allow_value(upload_csv('5x3.csv')).for(:csv) }
+    it { should allow_value(csv_upload('5x3.csv')).for(:csv) }
 
-    it { should_not allow_value(upload_csv('6x4.csv')).for(:csv) }
+    it { should_not allow_value(csv_upload('6x4.csv')).for(:csv) }
 
     it { should ensure_valid_csv_format_of(:csv) }
     it { should_not ensure_valid_csv_format_of(:name) }
@@ -82,9 +72,9 @@ describe CsvValidator do
 
     subject { klass.new }
 
-    it { should allow_value(upload_csv('6x4.csv')).for(:csv) }
+    it { should allow_value(csv_upload('6x4.csv')).for(:csv) }
 
-    it { should_not allow_value(upload_csv('5x3.csv')).for(:csv) }
+    it { should_not allow_value(csv_upload('5x3.csv')).for(:csv) }
 
     it { should ensure_valid_csv_format_of(:csv) }
     it { should_not ensure_valid_csv_format_of(:name) }
@@ -101,9 +91,9 @@ describe CsvValidator do
 
     subject { klass.new }
 
-    it { should allow_value(upload_csv('6x4.csv')).for(:csv) }
+    it { should allow_value(csv_upload('6x4.csv')).for(:csv) }
 
-    it { should_not allow_value(upload_csv('5x3.csv')).for(:csv) }
+    it { should_not allow_value(csv_upload('5x3.csv')).for(:csv) }
 
     it { should ensure_valid_csv_format_of(:csv) }
     it { should_not ensure_valid_csv_format_of(:name) }
@@ -120,9 +110,9 @@ describe CsvValidator do
 
     subject { klass.new }
 
-    it { should allow_value(upload_csv('5x3.csv')).for(:csv) }
+    it { should allow_value(csv_upload('5x3.csv')).for(:csv) }
 
-    it { should_not allow_value(upload_csv('6x4.csv')).for(:csv) }
+    it { should_not allow_value(csv_upload('6x4.csv')).for(:csv) }
 
     it { should ensure_valid_csv_format_of(:csv) }
     it { should_not ensure_valid_csv_format_of(:name) }
@@ -139,9 +129,9 @@ describe CsvValidator do
 
     subject { klass.new }
 
-    it { should allow_value(upload_csv('6x4.csv')).for(:csv) }
+    it { should allow_value(csv_upload('6x4.csv')).for(:csv) }
 
-    it { should_not allow_value(upload_csv('5x3.csv')).for(:csv) }
+    it { should_not allow_value(csv_upload('5x3.csv')).for(:csv) }
 
     it { should ensure_valid_csv_format_of(:csv) }
     it { should_not ensure_valid_csv_format_of(:name) }

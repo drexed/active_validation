@@ -1,9 +1,10 @@
 RSpec::Matchers.define :ensure_valid_csv_format_of do |attribute|
   match do |model|
-    file_name = '6x4.txt'
-    csv_path = File.join(File.expand_path('../spec/support/csv', file_name), file_name)
-    csv_file = File.open(csv_path)
-    csv_file = ActionDispatch::Http::UploadedFile.new(tempfile: csv_file, filename: File.basename(csv_file))
+    file_name = 'csv.txt'
+    csv_file = File.expand_path('../spec/support/txt', file_name)
+    csv_file = File.join(csv_file, file_name)
+    csv_file = File.open(csv_file)
+    csv_file = ActionDispatch::Http::UploadedFile.new(tempfile: csv_file, filename: file_name)
 
     model.send("#{attribute}=", csv_file)
     model.valid?
