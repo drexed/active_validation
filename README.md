@@ -34,6 +34,7 @@ Or install it yourself as:
 * [Boolean](#booleanvalidator)
 * [Coordinates](#coordinatesvalidator)
 * [Credit Card](#creditcardvalidator)
+* [Csv](#csvvalidator)
 * [Currency](#currencyvalidator)
 * [CUSIP](#cusipvalidator)
 * [Email](#emailvalidator)
@@ -306,6 +307,42 @@ RSpec matcher is also available for your convenience:
 describe Invoice do
   it { should ensure_valid_credit_card_format_of(:cc_number) }
   it { should_not ensure_valid_credit_card_format_of(:name) }
+end
+```
+
+## CsvValidator
+
+With an ActiveRecord model:
+
+```ruby
+class Product < ActiveRecord::Base
+  attr_accessor :csv, :name
+  validates :csv, csv: true
+end
+```
+
+Or any ruby class:
+
+```ruby
+class Product
+  include ActiveModel::Validations
+  attr_accessor :csv, :name
+  validates :csv, csv: true
+end
+```
+
+Options: :columns, :max_columns, :min_columns, :rows, :max_rows, :min_rows
+
+```ruby
+validates :csv, csv: { columns: 6, min_rows: 20 }
+```
+
+RSpec matcher is also available for your convenience:
+
+```ruby
+describe Product do
+  it { should ensure_valid_csv_format_of(:csv) }
+  it { should_not ensure_valid_csv_format_of(:name) }
 end
 ```
 

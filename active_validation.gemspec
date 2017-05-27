@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = %w[lib]
 
+  spec.add_runtime_dependency 'actionpack'
   spec.add_runtime_dependency 'activemodel'
   spec.add_runtime_dependency 'activesupport'
 
@@ -27,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'coveralls'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'shoulda'
   spec.add_development_dependency 'fasterer'
   spec.add_development_dependency 'reek'

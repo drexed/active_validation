@@ -1,9 +1,11 @@
 require 'coveralls'
 Coveralls.wear!
 
+require 'action_dispatch'
 require 'active_model'
 require 'active_support'
 require 'rspec/matchers'
+require 'rspec/rails/extensions'
 require 'shoulda'
 require 'active_validation'
 

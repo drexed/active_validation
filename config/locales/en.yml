@@ -11,6 +11,7 @@ en:
           latitude: 'is not a valid latitude'
           longitude: 'is not a valid longitude'
         credit_card: 'is not a valid credit card format'
+        csv: 'is not a valid csv'
         currency: 'is not in valid currency format'
         cusip: 'is not in valid CUSIP format'
         email: 'is not in valid email format'
@@ -52,6 +53,9 @@ en:
         ensure_valid_credit_card_format_of:
           failure_message_for_should: '%{model} should ensure valid credit card format of attribute %{attr}'
           failure_message_for_should_not: '%{model} should not ensure valid credit card format of attribute %{attr}'
+        ensure_valid_csv_format_of:
+          failure_message_for_should: '%{model} should ensure valid csv format of attribute %{attr}'
+          failure_message_for_should_not: '%{model} should not ensure valid csv format of attribute %{attr}'
         ensure_valid_currency_format_of:
           failure_message_for_should: '%{model} should ensure valid currency format of attribute %{attr}'
           failure_message_for_should_not: '%{model} should not ensure valid currency format of attribute %{attr}'
