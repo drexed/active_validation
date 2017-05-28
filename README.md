@@ -313,14 +313,16 @@ end
 
 ## CsvValidator
 
-Options: :columns, :max_columns, :min_columns, :rows, :max_rows, :min_rows
+Options: :columns :columns_in, :columns_less_than, :columns_less_than_or_equal_to,
+         :columns_greater_than, :columns_greater_than_or_equal_to, :rows, :rows_in, :rows_less_than,
+         :rows_less_than_or_equal_to, :rows_greater_than, :rows_greater_than_or_equal_to
 
 With an ActiveRecord model:
 
 ```ruby
 class Product < ActiveRecord::Base
   attr_accessor :csv, :name
-  validates :csv, csv: { columns: 6, min_rows: 20 }
+  validates :csv, csv: { columns: 6, rows_less_than: 20 }
 end
 ```
 
@@ -330,7 +332,7 @@ Or any ruby class:
 class Product
   include ActiveModel::Validations
   attr_accessor :csv, :name
-  validates :csv, csv: { min_columns: 6, rows: 20 }
+  validates :csv, csv: { columns_less_than: 6, rows: 20 }
 end
 ```
 

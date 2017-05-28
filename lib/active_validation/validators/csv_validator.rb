@@ -1,66 +1,91 @@
 class CsvValidator < ActiveModel::EachValidator
 
-  CHECKS ||= %i[columns max_columns min_columns rows max_rows min_rows].freeze
+  CHECKS ||= {
+    columns: :==,
+    columns_in: :===,
+    columns_less_than: :<,
+    columns_less_than_or_equal_to: :<=,
+    columns_greater_than: :>,
+    columns_greater_than_or_equal_to: :>=,
+    rows: :==,
+    rows_in: :===,
+    rows_less_than: :<,
+    rows_less_than_or_equal_to: :<=,
+    rows_greater_than: :>,
+    rows_greater_than_or_equal_to: :>=
+  }.freeze
 
   def validate_each(record, attribute, value)
-    unless CHECKS.any? { |key| options.key?(key) }
-      raise ArgumentError,
-            "Unknown check. Valid checks are: #{CHECKS.map(&:inspect).join(', ')}"
+    assert_valid_options!
+    values = parse_values(record, attribute, value)
+
+    if values.nil?
+      record.errors.add(attribute, 'not a valid csv')
+      return
     end
 
-    return if valid?(value)
-    record.errors
-          .add(attribute, options[:message] || I18n.t('active_validation.errors.messages.csv'))
+    options.slice(*CHECKS.keys).each do |option, option_value|
+      option_value = option_value.call(record) if option_value.is_a?(Proc)
+
+      next unless values.any? { |val| !valid_size?(val, option, option_value) }
+      error_text = I18n.t("active_validation.errors.messages.csv.#{option}",
+                          filtered_options(values).merge!(detect_error_options(option_value)))
+      record.errors.add(attribute, error_text)
+    end
   end
 
   private
 
-  def valid_extension?(value)
-    value.path.end_with?('.csv') rescue false
+  def assert_valid_options!
+    unless (CHECKS.keys & options.keys).present?
+      raise ArgumentError,
+            "You must at least pass in one of these options - #{CHECKS.map(&:inspect).join(', ')}"
+    end
+
+    check_options(Numeric, options.slice(*(CHECKS.keys - %i[columns_in rows_in])))
+    check_options(Range, options.slice(:columns_in, :rows_in))
   end
 
-  def valid_columns?(csv)
-    return true unless options.key?(:columns)
-    csv.first.length == options[:columns]
+  def valid_extension?(record, attribute, value)
+    value.path.end_with?('.csv')
+  rescue
+    record.errors.add(attribute, I18n.t('active_validation.errors.messages.csv.not_valid'))
+    false
   end
 
-  def valid_max_columns?(csv)
-    return true unless options.key?(:max_columns)
-    csv.first.length <= options[:max_columns]
-  end
-
-  def valid_min_columns?(csv)
-    return true unless options.key?(:min_columns)
-    csv.first.length >= options[:min_columns]
-  end
-
-  def valid_rows?(csv)
-    return true unless options.key?(:rows)
-    csv.length == options[:rows]
-  end
-
-  def valid_max_rows?(csv)
-    return true unless options.key?(:max_rows)
-    csv.length <= options[:max_rows]
-  end
-
-  def valid_min_rows?(csv)
-    return true unless options.key?(:min_rows)
-    csv.length >= options[:min_rows]
-  end
-
-  def valid?(value)
-    return unless valid_extension?(value)
-    csv = CSV.read(value.path)
+  def parse_values(record, attribute, value)
+    return nil unless valid_extension?(record, attribute, value)
+    [CSV.read(value.path)]
   rescue CSV::MalformedCSVError
-    return false
-  else
-    valid_columns?(csv) &&
-      valid_max_columns?(csv) &&
-      valid_min_columns?(csv) &&
-      valid_rows?(csv) &&
-      valid_max_rows?(csv) &&
-      valid_min_rows?(csv)
+    record.errors.add(attribute, I18n.t('active_validation.errors.messages.csv.not_valid'))
+    nil
+  end
+
+  def check_options(klass, options)
+    options.each do |option, value|
+      next if value.is_a?(klass) || value.is_a?(Proc)
+      raise ArgumentError,
+            ":#{option} must be a #{klass.name.to_s.downcase} or a proc"
+    end
+  end
+
+  def valid_size?(value, option, option_value)
+    size = /columns/.match?(option) ? value.first.length : value.length
+
+    return false if size.zero?
+    return option_value.send(CHECKS[option], size) if option_value.is_a?(Range)
+    size.send(CHECKS[option], option_value)
+  end
+
+  def filtered_options(value)
+    filtered = options.except(*CHECKS.keys)
+    filtered[:value] = value
+    filtered
+  end
+
+  def detect_error_options(option_value)
+    return { count: option_value } unless option_value.is_a?(Range)
+    { min: option_value.min, max: option_value.max }
   end
 
 end

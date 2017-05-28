@@ -31,7 +31,7 @@ class FileSizeValidator < ActiveModel::EachValidator
             "You must at least pass in one of these options - #{CHECKS.map(&:inspect).join(', ')}"
     end
 
-    check_options(Numeric, options.slice(*(CHECKS.keys - [:in])))
+    check_options(Numeric, options.slice(*(CHECKS.keys - %i[in])))
     check_options(Range, options.slice(:in))
   end
 

@@ -18,36 +18,18 @@ describe CsvValidator do
     it { should allow_value(csv_upload('6x4.csv')).for(:csv) }
 
     it { should_not allow_value(csv_upload('5x3.csv')).for(:csv) }
+    it { should_not allow_value(txt_upload('csv.txt')).for(:csv) }
 
-    it { should ensure_valid_csv_format_of(:csv) }
+    # it { should ensure_valid_csv_format_of(:csv) }
     it { should_not ensure_valid_csv_format_of(:name) }
   end
 
-  context 'with :max_columns option has a valid value' do
+  context 'with :columns_in option has a valid value' do
     let(:klass) do
       Class.new do
         include ActiveModel::Validations
         attr_accessor :csv, :name
-        validates :csv, csv: { max_columns: 5 }
-      end
-    end
-
-    subject { klass.new }
-
-    it { should allow_value(csv_upload('5x3.csv')).for(:csv) }
-
-    it { should_not allow_value(csv_upload('6x4.csv')).for(:csv) }
-
-    it { should ensure_valid_csv_format_of(:csv) }
-    it { should_not ensure_valid_csv_format_of(:name) }
-  end
-
-  context 'with :min_columns option has a valid value' do
-    let(:klass) do
-      Class.new do
-        include ActiveModel::Validations
-        attr_accessor :csv, :name
-        validates :csv, csv: { min_columns: 6 }
+        validates :csv, csv: { columns_in: (6..7) }
       end
     end
 
@@ -57,7 +39,83 @@ describe CsvValidator do
 
     it { should_not allow_value(csv_upload('5x3.csv')).for(:csv) }
 
-    it { should ensure_valid_csv_format_of(:csv) }
+    # it { should ensure_valid_csv_format_of(:csv) }
+    it { should_not ensure_valid_csv_format_of(:name) }
+  end
+
+  context 'with :columns_less_than option has a valid value' do
+    let(:klass) do
+      Class.new do
+        include ActiveModel::Validations
+        attr_accessor :csv, :name
+        validates :csv, csv: { columns_less_than: 6 }
+      end
+    end
+
+    subject { klass.new }
+
+    it { should allow_value(csv_upload('5x3.csv')).for(:csv) }
+
+    it { should_not allow_value(csv_upload('6x4.csv')).for(:csv) }
+
+    # it { should ensure_valid_csv_format_of(:csv) }
+    it { should_not ensure_valid_csv_format_of(:name) }
+  end
+
+  context 'with :columns_less_than_or_equal_to option has a valid value' do
+    let(:klass) do
+      Class.new do
+        include ActiveModel::Validations
+        attr_accessor :csv, :name
+        validates :csv, csv: { columns_less_than_or_equal_to: 5 }
+      end
+    end
+
+    subject { klass.new }
+
+    it { should allow_value(csv_upload('5x3.csv')).for(:csv) }
+
+    it { should_not allow_value(csv_upload('6x4.csv')).for(:csv) }
+
+    # it { should ensure_valid_csv_format_of(:csv) }
+    it { should_not ensure_valid_csv_format_of(:name) }
+  end
+
+  context 'with :columns_greater_than option has a valid value' do
+    let(:klass) do
+      Class.new do
+        include ActiveModel::Validations
+        attr_accessor :csv, :name
+        validates :csv, csv: { columns_greater_than: 5 }
+      end
+    end
+
+    subject { klass.new }
+
+    it { should allow_value(csv_upload('6x4.csv')).for(:csv) }
+
+    it { should_not allow_value(csv_upload('5x3.csv')).for(:csv) }
+
+    # it { should ensure_valid_csv_format_of(:csv) }
+    it { should_not ensure_valid_csv_format_of(:name) }
+  end
+
+  context 'with :columns_greater_than_or_equal_to option has a valid value' do
+    let(:klass) do
+      Class.new do
+        include ActiveModel::Validations
+        attr_accessor :csv, :name
+        validates :csv, csv: { columns_greater_than_or_equal_to: 6 }
+      end
+    end
+
+    subject { klass.new }
+
+    it { should allow_value(csv_upload('6x4.csv')).for(:csv) }
+
+    it { should_not allow_value(csv_upload('5x3.csv')).for(:csv) }
+
+    # it { should ensure_valid_csv_format_of(:csv) }
     it { should_not ensure_valid_csv_format_of(:name) }
   end
 
@@ -75,36 +133,18 @@ describe CsvValidator do
     it { should allow_value(csv_upload('6x4.csv')).for(:csv) }
 
     it { should_not allow_value(csv_upload('5x3.csv')).for(:csv) }
+    it { should_not allow_value(txt_upload('csv.txt')).for(:csv) }
 
-    it { should ensure_valid_csv_format_of(:csv) }
+    # it { should ensure_valid_csv_format_of(:csv) }
     it { should_not ensure_valid_csv_format_of(:name) }
   end
 
-  context 'with :max_rows option has a valid value' do
+  context 'with :rows_in option has a valid value' do
     let(:klass) do
       Class.new do
         include ActiveModel::Validations
         attr_accessor :csv, :name
-        validates :csv, csv: { max_rows: 3 }
-      end
-    end
-
-    subject { klass.new }
-
-    it { should allow_value(csv_upload('5x3.csv')).for(:csv) }
-
-    it { should_not allow_value(csv_upload('6x4.csv')).for(:csv) }
-
-    it { should ensure_valid_csv_format_of(:csv) }
-    it { should_not ensure_valid_csv_format_of(:name) }
-  end
-
-  context 'with :min_rows option has a valid value' do
-    let(:klass) do
-      Class.new do
-        include ActiveModel::Validations
-        attr_accessor :csv, :name
-        validates :csv, csv: { min_rows: 4 }
+        validates :csv, csv: { rows_in: (4..7) }
       end
     end
 
@@ -114,7 +154,83 @@ describe CsvValidator do
 
     it { should_not allow_value(csv_upload('5x3.csv')).for(:csv) }
 
-    it { should ensure_valid_csv_format_of(:csv) }
+    # it { should ensure_valid_csv_format_of(:csv) }
+    it { should_not ensure_valid_csv_format_of(:name) }
+  end
+
+  context 'with :rows_less_than option has a valid value' do
+    let(:klass) do
+      Class.new do
+        include ActiveModel::Validations
+        attr_accessor :csv, :name
+        validates :csv, csv: { rows_less_than: 4 }
+      end
+    end
+
+    subject { klass.new }
+
+    it { should allow_value(csv_upload('5x3.csv')).for(:csv) }
+
+    it { should_not allow_value(csv_upload('6x4.csv')).for(:csv) }
+
+    # it { should ensure_valid_csv_format_of(:csv) }
+    it { should_not ensure_valid_csv_format_of(:name) }
+  end
+
+  context 'with :rows_less_than_or_equal_to option has a valid value' do
+    let(:klass) do
+      Class.new do
+        include ActiveModel::Validations
+        attr_accessor :csv, :name
+        validates :csv, csv: { rows_less_than_or_equal_to: 3 }
+      end
+    end
+
+    subject { klass.new }
+
+    it { should allow_value(csv_upload('5x3.csv')).for(:csv) }
+
+    it { should_not allow_value(csv_upload('6x4.csv')).for(:csv) }
+
+    # it { should ensure_valid_csv_format_of(:csv) }
+    it { should_not ensure_valid_csv_format_of(:name) }
+  end
+
+  context 'with :rows_greater_than option has a valid value' do
+    let(:klass) do
+      Class.new do
+        include ActiveModel::Validations
+        attr_accessor :csv, :name
+        validates :csv, csv: { rows_greater_than: 3 }
+      end
+    end
+
+    subject { klass.new }
+
+    it { should allow_value(csv_upload('6x4.csv')).for(:csv) }
+
+    it { should_not allow_value(csv_upload('5x3.csv')).for(:csv) }
+
+    # it { should ensure_valid_csv_format_of(:csv) }
+    it { should_not ensure_valid_csv_format_of(:name) }
+  end
+
+  context 'with :rows_greater_than_or_equal_to option has a valid value' do
+    let(:klass) do
+      Class.new do
+        include ActiveModel::Validations
+        attr_accessor :csv, :name
+        validates :csv, csv: { rows_greater_than_or_equal_to: 4 }
+      end
+    end
+
+    subject { klass.new }
+
+    it { should allow_value(csv_upload('6x4.csv')).for(:csv) }
+
+    it { should_not allow_value(csv_upload('5x3.csv')).for(:csv) }
+
+    # it { should ensure_valid_csv_format_of(:csv) }
     it { should_not ensure_valid_csv_format_of(:name) }
   end
 
