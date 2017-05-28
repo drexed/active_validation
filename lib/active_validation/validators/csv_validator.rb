@@ -28,8 +28,9 @@ class CsvValidator < ActiveModel::EachValidator
       option_value = option_value.call(record) if option_value.is_a?(Proc)
 
       next unless values.any? { |val| !valid_size?(val, option, option_value) }
-      error_text = I18n.t("active_validation.errors.messages.csv.#{option}",
-                          filtered_options(values).merge!(detect_error_options(option_value)))
+      error_text = filtered_options(values).merge!(detect_error_options(option_value))
+      error_text = options[:message] ||
+                   I18n.t("active_validation.errors.messages.csv.#{option}", error_text)
       record.errors.add(attribute, error_text)
     end
   end
