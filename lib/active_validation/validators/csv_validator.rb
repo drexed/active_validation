@@ -31,7 +31,7 @@ class CsvValidator < ActiveModel::EachValidator
       error_text = filtered_options(values).merge!(detect_error_options(option_value))
       error_text = options[:message] ||
                    I18n.t("active_validation.errors.messages.csv.#{option}", error_text)
-      record.errors.add(attribute, error_text)
+      record.errors[attribute] << (options[:message] || error_text)
     end
   end
 
@@ -50,7 +50,8 @@ class CsvValidator < ActiveModel::EachValidator
   def valid_extension?(record, attribute, value)
     value.path.end_with?('.csv')
   rescue
-    record.errors.add(attribute, I18n.t('active_validation.errors.messages.csv.not_valid'))
+    record.errors[attribute] <<
+      (options[:message] || I18n.t('active_validation.errors.messages.csv.not_valid'))
     false
   end
 
@@ -58,7 +59,8 @@ class CsvValidator < ActiveModel::EachValidator
     return nil unless valid_extension?(record, attribute, value)
     [CSV.read(value.path)]
   rescue CSV::MalformedCSVError
-    record.errors.add(attribute, I18n.t('active_validation.errors.messages.csv.not_valid'))
+    record.errors[attribute] <<
+      (options[:message] || I18n.t('active_validation.errors.messages.csv.not_valid'))
     nil
   end
 

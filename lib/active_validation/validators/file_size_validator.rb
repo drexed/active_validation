@@ -20,7 +20,7 @@ class FileSizeValidator < ActiveModel::EachValidator
       error_text = filtered_options(values).merge!(detect_error_options(option_value))
       error_text = options[:message] ||
                    I18n.t("active_validation.errors.messages.file_size.#{option}", error_text)
-      record.errors.add(attribute, error_text)
+      record.errors[attribute] << (options[:message] || error_text)
     end
   end
 
