@@ -38,6 +38,7 @@ class UrlValidator < ActiveModel::EachValidator
     value.is_a?(URI::Generic)
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def valid?(value, options)
     valid_length?(value) &&
       valid_uri?(value) &&
@@ -45,5 +46,6 @@ class UrlValidator < ActiveModel::EachValidator
       valid_scheme?(value, [*(options[:scheme] || UrlValidator::DEFAULT_SCHEMES)]) &&
       (options[:root] ? valid_root?(value) : true)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
 end

@@ -202,6 +202,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
   end
 
   # Base
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def valid_checksum?(value, options)
     carrier = options[:carrier]
     service = options[:service]
@@ -226,6 +227,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
 
     result
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def valid_length?(value)
     value.present?
