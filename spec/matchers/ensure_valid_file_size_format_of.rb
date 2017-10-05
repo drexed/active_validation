@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec::Matchers.define :ensure_valid_file_size_format_of do |attribute|
   match do |model|
     file_name = 'csv.txt'

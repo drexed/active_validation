@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BooleanValidator < ActiveModel::EachValidator
 
   FALSE_VALUES ||= [false, 0, '0', 'f', 'F', 'false', 'FALSE'].freeze

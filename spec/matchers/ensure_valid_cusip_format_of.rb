@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec::Matchers.define :ensure_valid_cusip_format_of do |attribute|
   match do |model|
     model.send("#{attribute}=", '1234567890')

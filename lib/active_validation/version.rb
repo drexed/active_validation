@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveValidation
-  VERSION = '4.0.11'.freeze
+  VERSION ||= '4.1.0'
 end

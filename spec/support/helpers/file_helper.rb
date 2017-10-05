@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FileHelper
 
   def csv_upload(file_name)

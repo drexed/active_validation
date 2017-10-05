@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TimeZoneValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)

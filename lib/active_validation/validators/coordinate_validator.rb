@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CoordinateValidator < ActiveModel::EachValidator
 
   BOUNDARIES ||= %i[coordinate latitude longitude].freeze

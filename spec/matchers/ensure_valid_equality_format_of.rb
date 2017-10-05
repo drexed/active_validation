@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec::Matchers.define :ensure_equality_of do |attribute|
   chain :to do |to|
     @to = to

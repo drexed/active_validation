@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CsvValidator < ActiveModel::EachValidator
 
   CHECKS ||= {

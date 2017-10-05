@@ -1,5 +1,4 @@
-require 'coveralls'
-Coveralls.wear!
+# frozen_string_literal: true
 
 require 'action_dispatch'
 require 'active_model'

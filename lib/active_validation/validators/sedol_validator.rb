@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SedolValidator < ActiveModel::EachValidator
 
   WEIGHTS ||= [1, 3, 1, 7, 3, 9, 1].freeze

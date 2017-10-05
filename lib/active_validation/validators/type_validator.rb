@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Boolean
   # Implement pseudo-boolean class
 end

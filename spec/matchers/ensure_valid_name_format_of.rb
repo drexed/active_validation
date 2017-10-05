@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec::Matchers.define :ensure_valid_name_format_of do |attribute|
   match do |model|
     model.send("#{attribute}=", 'Jame$ Ear1 Jones')

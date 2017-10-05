@@ -18,6 +18,8 @@ Layout/MultilineMethodCallIndentation:
   EnforcedStyle: aligned
 LineLength:
   Max: 100
+Lint/RescueWithoutErrorClass:
+  Enabled: false
 Lint/ScriptPermission:
   Enabled: false
 Metrics/AbcSize:
@@ -45,8 +47,6 @@ Style/ClassVars:
 Style/Documentation:
   Enabled: false
 Style/HashSyntax:
-  Enabled: false
-Style/FrozenStringLiteralComment:
   Enabled: false
 Style/NumericLiterals:
   Enabled: false

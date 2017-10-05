@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 require 'uri'
+
 class UrlValidator < ActiveModel::EachValidator
 
   DEFAULT_SCHEMES ||= %i[http https].freeze

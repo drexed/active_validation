@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec::Matchers.define :ensure_valid_mac_address_format_of do |attribute|
   match do |model|
     model.send("#{attribute}=", 'invalid.mac.address')

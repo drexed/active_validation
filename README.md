@@ -2,7 +2,6 @@
 
 [![Gem Version](https://badge.fury.io/rb/active_validation.svg)](http://badge.fury.io/rb/active_validation)
 [![Build Status](https://travis-ci.org/drexed/active_validation.svg?branch=master)](https://travis-ci.org/drexed/active_validation)
-[![Coverage Status](https://coveralls.io/repos/github/drexed/active_validation/badge.svg?branch=master)](https://coveralls.io/github/drexed/active_validation?branch=master)
 
 ActiveValidation is a collection of custom validators that are often required in Rails applications plus shoulda-style RSpec matchers to test the validation rules.
 

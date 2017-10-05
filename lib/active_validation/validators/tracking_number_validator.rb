@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrackingNumberValidator < ActiveModel::EachValidator
 
   CARRIERS_AND_SERVICES ||= {

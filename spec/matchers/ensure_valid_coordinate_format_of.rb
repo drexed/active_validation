@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec::Matchers.define :ensure_valid_coordinate_format_of do |attribute|
   match do |model|
     model.send("#{attribute}=", [91, 181])
