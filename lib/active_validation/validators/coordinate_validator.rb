@@ -13,6 +13,7 @@ class CoordinateValidator < ActiveModel::EachValidator
     end
 
     return if valid?(value, options)
+
     record.errors[attribute] <<
       (options[:message] || I18n.t("active_validation.errors.messages.coordinate.#{boundary}"))
   end

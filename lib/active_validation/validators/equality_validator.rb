@@ -28,6 +28,7 @@ class EqualityValidator < ActiveModel::EachValidator
 
     operator = OPERATORS[operator]
     return if value.send(operator, record.send(to))
+
     record.errors[attribute] <<
       (options[:message] || I18n.t('active_validation.errors.messages.equality', attr: to, operator: operator))
   end

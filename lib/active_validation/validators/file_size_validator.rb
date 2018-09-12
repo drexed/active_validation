@@ -19,6 +19,7 @@ class FileSizeValidator < ActiveModel::EachValidator
       option_value = option_value.call(record) if option_value.is_a?(Proc)
 
       next unless values.any? { |val| !valid_size?(val.size, option, option_value) }
+
       error_text = filtered_options(values).merge!(detect_error_options(option_value))
       error_text = options[:message] ||
                    I18n.t("active_validation.errors.messages.file_size.#{option}", error_text)
@@ -51,6 +52,7 @@ class FileSizeValidator < ActiveModel::EachValidator
   def check_options(klass, options)
     options.each do |option, value|
       next if value.is_a?(klass) || value.is_a?(Proc)
+
       raise ArgumentError,
             ":#{option} must be a #{klass.name.to_s.downcase} or a proc"
     end
@@ -59,6 +61,7 @@ class FileSizeValidator < ActiveModel::EachValidator
   def valid_size?(size, option, option_value)
     return false if size.nil?
     return option_value.send(CHECKS[option], size) if option_value.is_a?(Range)
+
     size.send(CHECKS[option], option_value)
   end
 
@@ -70,6 +73,7 @@ class FileSizeValidator < ActiveModel::EachValidator
 
   def detect_error_options(option_value)
     return { count: human_size(option_value) } unless option_value.is_a?(Range)
+
     { min: human_size(option_value.min), max: human_size(option_value.max) }
   end
 

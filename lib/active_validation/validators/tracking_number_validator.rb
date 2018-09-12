@@ -25,6 +25,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     return if valid?(value.to_s, options)
+
     record.errors[attribute] <<
       (options[:message] || I18n.t('active_validation.errors.messages.tracking_number'))
   end
@@ -36,6 +37,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     define_method("valid_dhl_#{srv}_checksum?") do |val|
       formula = val.scan(pat).flatten.compact
       return(false) if formula.empty?
+
       sequence, check_digit = formula.map(&:to_i)
 
       (sequence % 7) == check_digit
@@ -49,6 +51,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     pattern = CARRIERS_AND_SERVICES[:fedex][:express]
     formula = value.scan(pattern).flatten.compact
     return(false) if formula.empty?
+
     sequence, check_digit = formula
 
     total = 0
@@ -67,6 +70,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
 
         formula = val.scan(pat).flatten.compact
         return(false) if formula.empty?
+
         sequence, check_digit = formula
 
         total = 0
@@ -89,6 +93,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
     pattern = CARRIERS_AND_SERVICES[:fedex][:smart_post]
     formula = value.scan(pattern).flatten.compact
     return(false) if formula.empty?
+
     sequence, check_digit = formula
 
     total = 0
@@ -113,6 +118,7 @@ class TrackingNumberValidator < ActiveModel::EachValidator
 
           formula = val.scan(pat).flatten.compact
           return(false) if formula.empty?
+
           sequence, check_digit = formula
 
           total = 0

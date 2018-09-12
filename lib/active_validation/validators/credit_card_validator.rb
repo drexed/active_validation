@@ -33,6 +33,7 @@ class CreditCardValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     return if valid?(value.to_s, options)
+
     record.errors[attribute] <<
       (options[:message] || I18n.t('active_validation.errors.messages.credit_card'))
   end

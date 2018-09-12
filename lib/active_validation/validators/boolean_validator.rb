@@ -7,6 +7,7 @@ class BooleanValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     return if TRUE_VALUES.include?(value) || FALSE_VALUES.include?(value)
+
     record.errors[attribute] <<
       (options[:message] || I18n.t('active_validation.errors.messages.boolean'))
   end

@@ -6,6 +6,7 @@ class IsbnValidator < ActiveModel::EachValidator
 
   def validate_each(record, attribute, value)
     return if valid?(value.to_s)
+
     record.errors[attribute] <<
       (options[:message] || I18n.t('active_validation.errors.messages.isbn'))
   end
@@ -14,6 +15,7 @@ class IsbnValidator < ActiveModel::EachValidator
 
   def valid_format?(value)
     return(false) if value.empty?
+
     value = value.gsub(/-| /, '').downcase.chars
 
     [10, 13].include?(value.size) && value.all? { |chr| CHARACTERS.include?(chr) }

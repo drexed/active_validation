@@ -32,6 +32,7 @@ class CsvValidator < ActiveModel::EachValidator
       option_value = option_value.call(record) if option_value.is_a?(Proc)
 
       next unless values.any? { |val| !valid_size?(val, option, option_value) }
+
       error_text = filtered_options(values).merge!(detect_error_options(option_value))
       error_text = options[:message] ||
                    I18n.t("active_validation.errors.messages.csv.#{option}", error_text)
@@ -51,18 +52,19 @@ class CsvValidator < ActiveModel::EachValidator
     check_options(Range, options.slice(:columns_in, :rows_in))
   end
 
-  # rubocop:disable Lint/RescueWithoutErrorClass
+  # rubocop:disable Lint/RescueException
   def valid_extension?(record, attribute, value)
     value.path.end_with?('.csv')
-  rescue
+  rescue Exception
     record.errors[attribute] <<
       (options[:message] || I18n.t('active_validation.errors.messages.csv.not_valid'))
     false
   end
-  # rubocop:enable Lint/RescueWithoutErrorClass
+  # rubocop:enable Lint/RescueException
 
   def parse_values(record, attribute, value)
     return nil unless valid_extension?(record, attribute, value)
+
     [CSV.read(value.path)]
   rescue CSV::MalformedCSVError
     record.errors[attribute] <<
@@ -73,6 +75,7 @@ class CsvValidator < ActiveModel::EachValidator
   def check_options(klass, options)
     options.each do |option, value|
       next if value.is_a?(klass) || value.is_a?(Proc)
+
       raise ArgumentError,
             ":#{option} must be a #{klass.name.to_s.downcase} or a proc"
     end
@@ -83,6 +86,7 @@ class CsvValidator < ActiveModel::EachValidator
 
     return false if size.zero?
     return option_value.send(CHECKS[option], size) if option_value.is_a?(Range)
+
     size.send(CHECKS[option], option_value)
   end
 
@@ -94,6 +98,7 @@ class CsvValidator < ActiveModel::EachValidator
 
   def detect_error_options(option_value)
     return { count: option_value } unless option_value.is_a?(Range)
+
     { min: option_value.min, max: option_value.max }
   end
 
