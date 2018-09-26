@@ -52,7 +52,6 @@ class CsvValidator < ActiveModel::EachValidator
     check_options(Range, options.slice(:columns_in, :rows_in))
   end
 
-  # rubocop:disable Lint/RescueException
   def valid_extension?(record, attribute, value)
     value.path.end_with?('.csv')
   rescue Exception
@@ -60,7 +59,6 @@ class CsvValidator < ActiveModel::EachValidator
       (options[:message] || I18n.t('active_validation.errors.messages.csv.not_valid'))
     false
   end
-  # rubocop:enable Lint/RescueException
 
   def parse_values(record, attribute, value)
     return nil unless valid_extension?(record, attribute, value)

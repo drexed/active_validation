@@ -1,7 +1,7 @@
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.5
   Exclude:
     - 'spec/**/**/*'
 Layout/EmptyLinesAroundClassBody:
@@ -10,7 +10,7 @@ Layout/MultilineMethodCallIndentation:
   EnforcedStyle: aligned
 LineLength:
   Max: 100
-Lint/ScriptPermission:
+Lint/RescueException:
   Enabled: false
 Metrics/AbcSize:
   Enabled: false
